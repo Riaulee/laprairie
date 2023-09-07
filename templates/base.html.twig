@@ -14,6 +14,9 @@
     {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
@@ -27,8 +30,8 @@
 
 <body>
     {% block header %}
-        {% include "elements/header.html.twig" %}
-        {% include "elements/_nav.html.twig" %}
+    {% include "elements/header.html.twig" %}
+    {% include "elements/_nav.html.twig" %}
     {% endblock header %}
     {% block body %}
     {% endblock %}

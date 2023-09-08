@@ -1,3 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
 {% block body %}
 <form method="post">
     {% if error %}
@@ -10,29 +14,13 @@
     </div>
     {% endif %}
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="formulaireConnexion" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Formulaire de connexion</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <form class="p-5 m-2" id="loginConnexion">
-                <div class="mb-3">
-                    <label for="inputEmail">Email</label>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-                        autocomplete="email" required autofocus>
-                </div>
-                <div class="mb-3">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control"
-                        autocomplete="current-password" required>
-                </div>
-                <button class="btn btn-secondary" type="submit">Se connecter</button>
-                <div id="inscriptionButton" class="form-text" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#formulaireInscription">Pas encore de compte? S'inscrire ici</div>
-            </form>
-        </div>
-    </div>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+        autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
+        required>
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -47,4 +35,3 @@
     </button>
 </form>
 {% endblock %}
-{# {{ include('registration/register.html.twig') }} #}

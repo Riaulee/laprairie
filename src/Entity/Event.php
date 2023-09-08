@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EventRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -43,9 +44,13 @@ class Event
     #[ORM\OneToMany(mappedBy: 'idEvent', targetEntity: Visual::class)]
     private Collection $visuals;
 
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: PostLike::class)]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->visuals = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,4 +183,49 @@ class Event
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, PostLike>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): static
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getEvent() === $this) {
+                $like->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Permet de savoir si un évenement est "liké" par un utilisateur
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) return true;
+        }
+        return false;
+    }
+
 }

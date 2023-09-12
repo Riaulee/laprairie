@@ -1,1 +1,7 @@
-@import "~bootstrap/scss/bootstrap";
+.body .body_arriere #body_arriere {
+    background-image: url(img/coquelicot_transparent_vert.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+/* @import "~bootstrap/scss/bootstrap"; */

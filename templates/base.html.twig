@@ -28,8 +28,10 @@
     {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-
-<body style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size: cover;">
+{# style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
+cover;" #}
+<body id="body_arriere" class="body_arriere" style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
+cover;">
     {% block header %}
     {% include "elements/header.html.twig" %}
     {% include "elements/_nav.html.twig" %}

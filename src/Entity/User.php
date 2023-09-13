@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,8 +34,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Event::class)]
-    private Collection $events;
+    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Post::class)]
+    private Collection $posts;
 
     #[ORM\Column(length: 50)]
     private ?string $firstName = null;
@@ -41,7 +43,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
 
-    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
@@ -58,8 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->events = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        // $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -133,29 +137,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Event>
+     * @return Collection<int, Post>
      */
-    public function getEvents(): Collection
+    public function getPosts(): Collection
     {
-        return $this->events;
+        return $this->posts;
     }
 
-    public function addEvent(Event $event): static
+    public function addPost(Post $post): static
     {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->setIdUser($this);
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setIdUser($this);
         }
 
         return $this;
     }
 
-    public function removeEvent(Event $event): static
+    public function removePost(Post $post): static
     {
-        if ($this->events->removeElement($event)) {
+        if ($this->posts->removeElement($post)) {
             // set the owning side to null (unless already changed)
-            if ($event->getIdUser() === $this) {
-                $event->setIdUser(null);
+            if ($post->getIdUser() === $this) {
+                $post->setIdUser(null);
             }
         }
 

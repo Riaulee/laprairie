@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Event;
-use App\Entity\PostLike;
-use App\Repository\EventRepository;
-use App\Repository\PostLikeRepository;
-use Doctrine\ORM\EntityManager;
 
+use App\Entity\Post;
+use App\Entity\PostLike;
+use Doctrine\ORM\EntityManager;
+use App\Repository\PostRepository;
+
+use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,42 +17,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     *@var EventRepository;
+     *@var PostRepository;
      */
 
     private $repository;
     private $em;
-    private $event;
+    private $post;
 
-    public function __construct(EventRepository $repo, EntityManagerInterface $em)
+    public function __construct(PostRepository $repo, EntityManagerInterface $em)
     {
         $this->repository = $repo; //Initialisation du repository
         $this->em = $em; //Initialisation du manager
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(EventRepository $repo): Response
+    public function index(PostRepository $repo): Response
     {
-        $events = $repo->findBy([], ['title' => 'asc']);
+        $posts = $repo->findBy([], ['title' => 'asc']);
         return $this->render('home/home.html.twig', [
-            'events' => $events,
+            'posts' => $posts,
         ]);
     }
 
     /**
      * Permet de "liker" ou "unliker" un évènement
      * 
-     * @param App\Entity\Event $events
+     * @param App\Entity\Post $posts
      * @param ObjectManager $manager
      * @param PostLikeRepository $repoLike
      * @return Response
      * 
-     * @var EventRepository;
+     * @var PostRepository;
      * 
      */
     
     #[Route('/post/{id}/like', name: 'app_like')]
-    public function like(Event $event, EntityManagerinterface $em, PostLikeRepository $likeRepo) : 
+    public function like($id, EntityManagerinterface $em, PostLikeRepository $likeRepo) : 
     Response{
 
         $user = $this->getUser();
@@ -61,9 +62,15 @@ class HomeController extends AbstractController
             'message' => "Unauthorized"
         ], 403);
 
-        if($event->isLikedByUser($user)){
+        $post = $em->getRepository(Post::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        if($post->isLikedByUser($user)){
             $like = $likeRepo->findOneBy([
-                'event' => $event,
+                'post' => $post,
                 'user' => $user
             ]);
 
@@ -73,12 +80,12 @@ class HomeController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Like bien supprimé',
-                'likes' => $likeRepo->count(['event' => $event])
+                'likes' => $likeRepo->count(['post' => $post])
             ],200);
         }
 
         $like = new PostLike();
-        $like->setEvent($event)
+        $like->setPost($post)
             ->setUser($user);
 
         $em->persist($like);
@@ -87,7 +94,7 @@ class HomeController extends AbstractController
         return $this->json([
             'code' => 200,
             'message' => 'Like bien ajouté',
-            'likes'=> $likeRepo->count(['event'=>$event])
+            'likes'=> $likeRepo->count(['post'=>$post])
         ], 200);
 
         return $this->json(['code' => 200, 'message'=>'Ca marche bien'], 200);

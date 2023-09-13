@@ -4,41 +4,13 @@
 
 {% block body %}
 
-
-<div id="banner" class="container">
-    <div class="row rounded bg-light p-3 opacity-75">
-        <div class="col-7 col-12-medium ">
-            <h2 class="fs-1">Collectif La Prairie</h2>
-            <p class="fs-2">Projet communautaire de végétalisation urbaine</p>
-        </div>
-        <div class="col-5 col-12-medium">
-            {# <ul>
-                <li><a href="#" class="button large icon solid fa-arrow-circle-right">Se connecter</a></li>
-                <li><a href="#" class="button alt large icon solid fa-question-circle">More info</a></li>
-            </ul> #}
-            <div class="row">
-                <p class="btn btn-info my-2 rounded p-2 py-5 fs-4">
-                    Se connecter
-                    <i class="fa-solid fa-circle-arrow-right"></i>
-                </p>
-                <p class="btn btn-secondary my-2 rounded p-2 py-5">
-                    More info
-
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <div class="container">
 
     <div class="row">
         <div class="col-md-12">
             <h1>Liste des evenements</h1>
             <ul>
-                {% for e in events %}
+                {% for e in posts %}
                 <li>
                     <h2>{{ e.title }}</h2>
                     {# <img src={{ e.img }} alt="photo de l'article" .{{ e.title }}> #}

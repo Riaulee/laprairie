@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\EventRepository;
+use App\Repository\PostRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
-#[ORM\Entity(repositoryClass: EventRepository::class)]
-class Event
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,14 +37,14 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'events')]
+    #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $idUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'idEvent', targetEntity: Visual::class)]
+    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class)]
     private Collection $visuals;
 
-    #[ORM\OneToMany(mappedBy: 'event', targetEntity: PostLike::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
     private Collection $likes;
 
     public function __construct()
@@ -166,7 +166,7 @@ class Event
     {
         if (!$this->visuals->contains($visual)) {
             $this->visuals->add($visual);
-            $visual->setIdEvent($this);
+            $visual->setIdPost($this);
         }
 
         return $this;
@@ -176,8 +176,8 @@ class Event
     {
         if ($this->visuals->removeElement($visual)) {
             // set the owning side to null (unless already changed)
-            if ($visual->getIdEvent() === $this) {
-                $visual->setIdEvent(null);
+            if ($visual->getIdPost() === $this) {
+                $visual->setIdPost(null);
             }
         }
 
@@ -196,7 +196,7 @@ class Event
     {
         if (!$this->likes->contains($like)) {
             $this->likes->add($like);
-            $like->setEvent($this);
+            $like->setPost($this);
         }
 
         return $this;
@@ -206,8 +206,8 @@ class Event
     {
         if ($this->likes->removeElement($like)) {
             // set the owning side to null (unless already changed)
-            if ($like->getEvent() === $this) {
-                $like->setEvent(null);
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
             }
         }
 

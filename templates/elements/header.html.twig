@@ -2,17 +2,45 @@
     <header id="header" class="container">
 
         <!-- Logo -->
-        <div id="logo">
-            Futur LOGO
-        </div>
 
         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion"
-                        data-backdrop="false" aria-controls="offcanvasRight">
-                        <i class="fa-solid fa-circle-user" id="connectionButton"></i></button>
-                        
-                        <a href="{{ path('app_home') }}" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion">
-                            Afficher l'offcanvas
-                        </a>
+            data-backdrop="false" aria-controls="offcanvasRight">
+            <i class="fa-solid fa-circle-user" id="connectionButton"></i></button>
+
+        <a href="{{ path('app_home') }}" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion">
+            Afficher l'offcanvas
+        </a>
+
+        <div id="banner">
+            <div class="row rounded bg-light p-3 opacity-100 d-flex align-items-center">
+                <div class="col-8 col-12-medium">
+                    <div class="text-center">
+                        <h2 class="display-4 fw-bolder">Collectif La Prairie</h2>
+                        <p class="fs-2">Projet communautaire de végétalisation urbaine</p>
+                    </div>
+                </div>
+                <div class="col-4 col-12-medium">
+                    {# <ul>
+                        <li><a href="#" class="button large icon solid fa-arrow-circle-right">Se connecter</a></li>
+                        <li><a href="#" class="button alt large icon solid fa-question-circle">More info</a></li>
+                    </ul> #}
+                    <div class="row ">
+                        <div class="btn btn-info my-2 rounded py-4">
+                            <div class="d-flex align-items-center justify-content-around">
+                                <h3 class="display-6 fw-bolder text-light">
+                                    Se connecter
+                                </h3>
+                                <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
+                            </div>
+                        </div>
+                        <p class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
+                            More info
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {# {{ include('security/login.html.twig') }} #}
     </header>

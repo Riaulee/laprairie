@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="{{ asset('css/_nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
-    {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> #}
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{asset('css/home.css')}}">
     {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -30,11 +30,11 @@
 </head>
 {# style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
 cover;" #}
-<body id="body_arriere" class="body_arriere" style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
+<body style="background-image: url(img/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
 cover;">
     {% block header %}
-    {% include "elements/header.html.twig" %}
     {% include "elements/_nav.html.twig" %}
+    {% include "elements/header.html.twig" %}
     {% endblock header %}
     {% block body %}
     {% endblock %}

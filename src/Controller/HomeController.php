@@ -10,6 +10,7 @@ use App\Repository\PostRepository;
 
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

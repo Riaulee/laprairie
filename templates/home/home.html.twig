@@ -15,8 +15,8 @@
                     <h2>{{ e.title }}</h2>
                     {# <img src={{ e.img }} alt="photo de l'article" .{{ e.title }}> #}
                     <p>{{ e.content }}</p>
-                    {# <p>Auteur : {{ e.idUser }}</p> #}
-                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like">
+                    {# <p>Auteur : {{ e.user }}</p> #}
+                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like" >
                         {% if app.user and e.isLikedByUser(app.user)%}
                         <i class="fa-solid fa-thumbs-up" style="color: #26a646;"></i>
                         {% else %}
@@ -33,4 +33,35 @@
 </div>
 
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+    function onClickButtonLike(event){
+        event.preventDefault();
+        console.log('Clicked!');
+        
+        const url = event.target.href;
+        const spanCount = this.querySelector('span.je-likes');
+        const icone = this.querySelector('i');
+
+        axios.get(url)
+        .then(function (response){
+            console.log(response);
+            spanCount.textContent = response.data.likes;
+        })
+        .catch(function (error) {
+                // en cas d’échec de la requête
+                console.log(error);
+            })
+    }
+    console.log(document.querySelectorAll("a.js-like"));
+
+    const elements = document.querySelectorAll('a.js-like');
+        const elementsArray = Array.from(elements);
+
+        elementsArray.forEach(function(link){
+            link.addEventListener("click", onClickButtonLike);
+        })
+    </script>
 {% endblock %}

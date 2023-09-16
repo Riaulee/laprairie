@@ -5,33 +5,74 @@
 {% block body %}
 
 <div class="container">
-    <div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Liste des evenements</h1>
-                <ul>
-                    {% for e in events %}
-                    <li>
-                        <h2>{{ e.title }}</h2>
-                        {# <img src={{ e.img }} alt="photo de l'article" .{{ e.title }}> #}
-                        <p>{{ e.content }}</p>
-                        {# <p>Auteur : {{ e.idUser }}</p> #}
-                        <a href="#" class="btn btn-link js-like">
-                            {% if app.user and e.isLikedByUser(app.user)%}
-                            <i class="fa-solid fa-thumbs-up" style="color: #26a646;"></i>
-                            {% else %}
-                            <i class="fa-regular fa-thumbs-up"></i>
-                            {% endif %}
-                            <span class="js-likes">{{e.likes | length}}</span>
-                            <span class="js-label">J'AIME</span>
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Liste des evenements</h1>
+            <ul>
+                {% for e in posts %}
+                <li>
+                    <h2>{{ e.title }}</h2>
+                    {# <img src={{ e.img }} alt="photo de l'article" .{{ e.title }}> #}
+                    <p>{{ e.content }}</p>
+                    {# <p>Auteur : {{ e.user }}</p> #}
+                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like" >
+                        {% if app.user and e.isLikedByUser(app.user)%}
+                        <i class="fa-solid fa-thumbs-up" style="color: #26a646;"></i>
+                        {% else %}
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        {% endif %}
+                        <span class="js-likes">{{e.likes | length}}</span>
+                        <span class="js-label">J'AIME</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
 
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+    function onClickButtonLike(event){
+        event.preventDefault();
+        console.log('Clicked!');
+        
+        const url = event.target.href;
+        const spanCount = this.querySelector('span.je-likes');
+        const icone = this.querySelector('i');
+
+        axios.get(url)
+        .then(function (response){
+            console.log(response);
+            
+            spanCount.textContent = response.data.likes;
+            
+            if(icone.classList.contains('fa-solid')){
+                icone.classList.replace('fa-solid', 'fa-regular')
+            }else{
+                icone.classList.replace('fa-regular', 'fa-solid')
+            }
+
+        })
+        .catch(function (error) {
+                // en cas d’échec de la requête
+                console.log(error);
+                if(error.response.status === 403){
+                    window.alert("Vous ne pouvez pas liker un article si vous n'êtres pas connecté")
+                }
+            })
+    }
+    console.log(document.querySelectorAll("a.js-like"));
+
+    const elements = document.querySelectorAll('a.js-like');
+        const elementsArray = Array.from(elements);
+
+        elementsArray.forEach(function(link){
+            link.addEventListener("click", onClickButtonLike);
+        })
+    </script>
 {% endblock %}

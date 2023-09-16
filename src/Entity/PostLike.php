@@ -14,7 +14,7 @@ class PostLike
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
-    private ?Event $event = null;
+    private ?Post $post = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?User $user = null;
@@ -24,14 +24,14 @@ class PostLike
         return $this->id;
     }
 
-    public function getEvent(): ?Event
+    public function getPost(): ?Post
     {
-        return $this->event;
+        return $this->post;
     }
 
-    public function setEvent(?Event $event): static
+    public function setPost(?Post $post): static
     {
-        $this->event = $event;
+        $this->post = $post;
 
         return $this;
     }

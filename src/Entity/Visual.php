@@ -21,7 +21,7 @@ class Visual
 
     #[ORM\ManyToOne(inversedBy: 'visuals')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?event $idEvent = null;
+    private ?post $idPost = null;
 
     public function getId(): ?int
     {
@@ -52,14 +52,14 @@ class Visual
         return $this;
     }
 
-    public function getIdEvent(): ?event
+    public function getIdPost(): ?post
     {
-        return $this->idEvent;
+        return $this->idPost;
     }
 
-    public function setIdEvent(?event $idEvent): static
+    public function setIdPost(?post $idPost): static
     {
-        $this->idEvent = $idEvent;
+        $this->idPost = $idPost;
 
         return $this;
     }

@@ -41,8 +41,8 @@ class HomeController extends AbstractController
     /**
      * Permet de "liker" ou "unliker" un évènement
      * 
-     * @param App\Entity\Event $events
-     * @param ObjectManager $manager
+     * @param \App\Entity\Event $event
+     * @param EntityManagerinterface $em
      * @param PostLikeRepository $repoLike
      * @return Response
      * 

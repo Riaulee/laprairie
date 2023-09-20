@@ -4,19 +4,20 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container-fluid">
 
-    <div class="row">
+    {# Articles boucle #}
+    {# <div class="row">
         <div class="col-md-12">
             <h1>Liste des evenements</h1>
             <ul>
                 {% for e in posts %}
                 <li>
                     <h2>{{ e.title }}</h2>
-                    {# <img src={{ e.img }} alt="photo de l'article" .{{ e.title }}> #}
+
                     <p>{{ e.content }}</p>
-                    {# <p>Auteur : {{ e.user }}</p> #}
-                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like" >
+
+                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like" data-action="like">
                         {% if app.user and e.isLikedByUser(app.user)%}
                         <i class="fa-solid fa-thumbs-up" style="color: #26a646;"></i>
                         {% else %}
@@ -29,50 +30,104 @@
                 {% endfor %}
             </ul>
         </div>
+    </div> #}
+
+
+    <div class="row my-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 rounded" style="background-color: white;">
+            <div class="row">
+                <div id="carouselArticle" class="carousel carousel-dark slide shadow-sm" data-bs-ride="carousel">
+
+                    <!-- Indicators/dots -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0"
+                            class="active"></button>
+                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="2"></button>
+                    </div>
+
+                    <!-- The slideshow/carousel -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active rounded" style="max-height: 25rem;">
+                            <img src="../img/site/eupatoire.jpg" alt="Los Angeles" class="d-block w-100"
+                                style="height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="carousel-item rounded" style="max-height: 25rem;">
+                            <img src="../img/site/eupatoire.jpg" alt="Chicago" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item rounded" style="max-height: 25rem;">
+                            <img src="../img/site/eupatoire.jpg" alt="New York" class="d-block w-100">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls/icons -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
     </div>
+
+    {# Encart passez à l'action #}
+    <div class="row my-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row rounded shadow-sm" style="background-color: white;">
+                <h1 class="text-center pt-5"> Passez à l'action ! </h3>
+
+                <div class="card m-3" style="width: 25rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
+                <div class="card m-3" style="width: 25rem; background-image: url('../img/site/vert.jpg;')">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
+                <div class="card m-3" style="width: 25rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+</div>
+
+
+
 </div>
 
 
 {% endblock %}
 
-{% block javascripts %}
-    <script>
-    function onClickButtonLike(event){
-        event.preventDefault();
-        console.log('Clicked!');
-        
-        const url = event.target.href;
-        const spanCount = this.querySelector('span.je-likes');
-        const icone = this.querySelector('i');
+{# {% block javascripts %}
+<script>
 
-        axios.get(url)
-        .then(function (response){
-            console.log(response);
-            
-            spanCount.textContent = response.data.likes;
-            
-            if(icone.classList.contains('fa-solid')){
-                icone.classList.replace('fa-solid', 'fa-regular')
-            }else{
-                icone.classList.replace('fa-regular', 'fa-solid')
-            }
-
-        })
-        .catch(function (error) {
-                // en cas d’échec de la requête
-                console.log(error);
-                if(error.response.status === 403){
-                    window.alert("Vous ne pouvez pas liker un article si vous n'êtres pas connecté")
-                }
-            })
-    }
-    console.log(document.querySelectorAll("a.js-like"));
-
-    const elements = document.querySelectorAll('a.js-like');
-        const elementsArray = Array.from(elements);
-
-        elementsArray.forEach(function(link){
-            link.addEventListener("click", onClickButtonLike);
-        })
-    </script>
-{% endblock %}
+</script>
+{% endblock %} #}

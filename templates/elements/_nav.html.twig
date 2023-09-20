@@ -1,27 +1,52 @@
-<!-- Nav -->
-
-<div class="container">
+{% block nav %}
+  <!-- Nav -->
+<div class="container-fluid">
   <div class="row">
-    <nav class="navbar navbar-expand-lg rounded bg-light my-5 p-3 ">
-      <a class="navbar-brand fs-5 fw-bold" href="#">Futur logo</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav fs-5 fw-bold">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Qui sommes-nous?</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Actualités</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Passer à l'action</a>
-          </li>
-        </ul>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg rounded my-5 p-3  shadow-sm" style="background-color: white;">
+          <a class="navbar-brand fs-5 fw-bold" href="#">Accueil</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav fs-5 fw-bold">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">
+                  <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                  Qui sommes-nous?
+                  <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">
+                  <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                  Actualités
+                  <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">
+                  <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                  Passer à l'action
+                  <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                </a>
+              </li>
+              {% if app.user %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{{'/admin'}}">
+                  <i class="fa-solid fa-user-gear mt-2"></i>
+                </a>
+              </li>
+              {% endif %}    
+            </ul>
+          </div>
+        </nav>
       </div>
-    </nav>
-
+    </div>
+    <div class="col-md-2"></div>
   </div>
 </div>
+{% endblock nav %}

@@ -1,45 +1,74 @@
 <div id="header-wrapper">
-    <header id="header" class="container">
+    <header id="header" class="container-fluid">
+        <div class="row ">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <!-- Logo -->
 
-        <!-- Logo -->
+                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion"
+                    data-backdrop="false" aria-controls="offcanvasRight">
+                    <i class="fa-solid fa-circle-user" id="connectionButton"></i></button>
 
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion"
-            data-backdrop="false" aria-controls="offcanvasRight">
-            <i class="fa-solid fa-circle-user" id="connectionButton"></i></button>
+                <a href="{{ path('app_home') }}" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion">
+                    Afficher l'offcanvas
+                </a>
 
-        <a href="{{ path('app_home') }}" data-bs-toggle="offcanvas" data-bs-target="#formulaireConnexion">
-            Afficher l'offcanvas
-        </a>
+                <div id="banner">
+                    <div class="row rounded p-3 opacity-100 d-flex align-items-center shadow-sm"
+                        style="background-color: white;">
+                        <div class="col-8 col-12-medium">
+                            <div class="text-center">
+                                <div class="row">
 
-        <div id="banner">
-            <div class="row rounded bg-light p-3 opacity-100 d-flex align-items-center">
-                <div class="col-8 col-12-medium">
-                    <div class="text-center">
-                        <h2 class="display-4 fw-bolder">Collectif La Prairie</h2>
-                        <p class="fs-2">Projet communautaire de végétalisation urbaine</p>
-                    </div>
-                </div>
-                <div class="col-4 col-12-medium">
-                    {# <ul>
-                        <li><a href="#" class="button large icon solid fa-arrow-circle-right">Se connecter</a></li>
-                        <li><a href="#" class="button alt large icon solid fa-question-circle">More info</a></li>
-                    </ul> #}
-                    <div class="row ">
-                        <div class="btn btn-info my-2 rounded py-4">
-                            <div class="d-flex align-items-center justify-content-around">
-                                <h3 class="display-6 fw-bolder text-light">
-                                    Se connecter
-                                </h3>
-                                <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
+                                    <h2 class="display-3 fw-bolder">
+                                        <img src="../img/site/eupatoire.jpg" alt="" style="max-width: 5rem;">
+                                        Collectif La Prairie
+                                        <img src="../img/site/eupatoire.jpg" alt="" style="max-width: 5rem;">
+                                    </h2>
+
+                                </div>
+                                <p class="fs-2">Projet communautaire de végétalisation urbaine</p>
                             </div>
                         </div>
-                        <p class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
-                            More info
+                        <div class="col-4 col-12-medium">
+                            <div class="row ">
+                                <div class="btn btn-info my-2 rounded py-4">
+                                    <div class="d-flex align-items-center justify-content-around">
+                                        {% if app.user %}
+                                        <h3 class="display-6 fw-bolder text-light">
+                                            <a href="{{'/logout'}}">
+                                                Se déconnecter
+                                            </a>
+                                        </h3>
+                                        <a href="{{'/logout'}}">
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
+                                                style="color: #ffffff;"></i>
+                                        </a>
+                                        {% else %}
+                                        <h3 class="display-6 fw-bolder text-light">
+                                            <a href="{{'/login'}}">
+                                                Se connecter
+                                            </a>
+                                        </h3>
+                                        <a href="{{'/login'}}">
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
+                                                style="color: #ffffff;"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <p class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
+                                    Plus d'infos
 
-                        </p>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
+            <div class="col-md-2"></div>
         </div>
 
         {# {{ include('security/login.html.twig') }} #}

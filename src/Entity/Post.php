@@ -47,6 +47,10 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
     private Collection $likes;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?PostType $fkposttype = null;
+
     public function __construct()
     {
         $this->visuals = new ArrayCollection();
@@ -226,6 +230,18 @@ class Post
             if ($like->getUser() === $user) return true;
         }
         return false;
+    }
+
+    public function getFkposttype(): ?PostType
+    {
+        return $this->fkposttype;
+    }
+
+    public function setFkposttype(?PostType $fkposttype): static
+    {
+        $this->fkposttype = $fkposttype;
+
+        return $this;
     }
 
 }

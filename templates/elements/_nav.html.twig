@@ -5,44 +5,50 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="row">
-        <nav class="navbar navbar-expand-lg rounded my-5 p-3  shadow-sm" style="background-color: white;">
-          <a class="navbar-brand fs-5 fw-bold" href="#">Accueil</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav fs-5 fw-bold">
-              <li class="nav-item active">
-                <a class="nav-link" href="./templates/Pages/quisommesnous.html.twig">
-                  <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
-                  Qui sommes-nous?
-                  <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
-                </a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
-                  Actualités
-                  <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
-                </a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
-                  Passer à l'action
-                  <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
-                </a>
-              </li>
-              {% if app.user %}
-              <li class="nav-item active">
-                <a class="nav-link" href="{{'/admin'}}">
-                  <i class="fa-solid fa-user-gear mt-2"></i>
-                </a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
+        <nav class="navbar navbar-expand-lg rounded my-5 p-3 shadow" style="background-color: white;">
+          <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">Accueil</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5 fw-bold">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ path('app_quisommesnous') }}">
+                    <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                    Qui sommes-nous?
+                    <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_actualite') }}">
+                    <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                    Actualités
+                    <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_passezalaction') }}">
+                    <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                    Passer à l'action
+                    <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                  </a>
+                </li>
+                {% if app.user %}
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{'/admin'}}">
+                    <i class="fa-solid fa-user-gear mt-2"></i>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+              {# <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form> #}
+            </div>
+            </div>
         </nav>
       </div>
     </div>

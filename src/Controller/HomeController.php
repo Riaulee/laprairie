@@ -10,7 +10,6 @@ use App\Repository\PostRepository;
 
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,52 +51,16 @@ class HomeController extends AbstractController
      * 
      */
     
-    #[Route('/post/{id}/like', name: 'app_like')]
-    public function like($id, EntityManagerinterface $em, PostLikeRepository $likeRepo) : 
-    Response{
 
-        $user = $this->getUser();
+    #[Route('/quisommesnous', name: 'app_quisommesnous')]
+    public function quisommesnous(): Response
+    {
+        return $this->render('Pages/quisommesnous.html.twig');
+    }
 
-        if(!$user) return $this->json([
-            'code' => 403,
-            'message' => "Unauthorized"
-        ], 403);
-
-        $post = $em->getRepository(Post::class)->find($id);
-
-        if (!$post) {
-            throw $this->createNotFoundException('Post not found');
-        }
-
-        if($post->isLikedByUser($user)){
-            $like = $likeRepo->findOneBy([
-                'post' => $post,
-                'user' => $user
-            ]);
-
-            $em->remove($like);
-            $em->flush();
-
-            return $this->json([
-                'code' => 200,
-                'message' => 'Like bien supprimé',
-                'likes' => $likeRepo->count(['post' => $post])
-            ],200);
-        }
-
-        $like = new PostLike();
-        $like->setPost($post)
-            ->setUser($user);
-
-        $em->persist($like);
-        $em->flush();
-
-        return $this->json([
-            'code' => 200,
-            'message' => 'Like bien ajouté',
-            'likes'=> $likeRepo->count(['post'=>$post])
-        ], 200);
-
-        return $this->json(['code' => 200, 'message'=>'Ca marche bien'], 200);
+    #[Route('/passezalaction', name: 'app_passezalaction')]
+    public function passezalaction(): Response
+    {
+        return $this->render('Pages/passezalaction.html.twig');
     }
 }

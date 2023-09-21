@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Post;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -57,8 +58,8 @@ class DashboardController extends AbstractDashboardController
         if ($this->isGranted('ROLE_EDITOR')) {
             yield MenuItem::section('Gestion de mes articles');
             yield MenuItem::subMenu('Mes événements', 'fa fa-user-circle')->setSubItems([
-                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', User::class)->setAction(Crud::PAGE_NEW),
-                MenuItem::linkToCrud('Liste de mes évènements', 'fas fa-eye', User::class),
+                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Liste de mes évènements', 'fas fa-eye', Post::class),
             ]);
         }
 
@@ -70,8 +71,8 @@ class DashboardController extends AbstractDashboardController
             ]);
             yield MenuItem::section('Gestion des articles');
             yield MenuItem::subMenu('Evénements', 'fa fa-user-circle')->setSubItems([
-                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', User::class)->setAction(Crud::PAGE_NEW),
-                MenuItem::linkToCrud('Liste des évènements', 'fas fa-eye', User::class),
+                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Liste des évènements', 'fas fa-eye', Post::class),
             ]);
         }
     }

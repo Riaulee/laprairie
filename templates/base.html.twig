@@ -33,8 +33,10 @@
 
 <body style="background-image: url(img/site/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
 cover; background-attachment: fixed;">
-    {% block header %}
+    {% block nav %}
     {% include "elements/_nav.html.twig" %}
+    {% endblock nav %}
+    {% block header %}
     {% include "elements/header.html.twig" %}
     {% endblock header %}
     {% block body %}

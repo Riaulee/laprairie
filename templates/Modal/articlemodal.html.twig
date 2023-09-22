@@ -1,0 +1,47 @@
+<!-- Modal de l'ajout d'article -->
+<div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="articleModalLabel">Ajoutez un article, un événement</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="typeEvenement">Type d'énénement</label>
+                    <select name="typeEvenement" id="typeEvenement" class="form-control" required>
+                        <option value="">Choisir une rubrique</option>
+                        <option value="Chantier">Chantier participatif</option>
+                        <option value="EvenementFutur">Evénement futur</option>
+                        <option value="EvenementPasse">Evenement passé</option>
+                        <option value="Lien">Lien internet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input type="text" class="form-control" name="title" id="title" aria-describedby="titre" required>
+                </div>
+                <div class="form-group">
+                    <label for="title">Sous-titre</label>
+                    <input type="text" class="form-control" name="subtitle" id="subtitle" aria-describedby="sous-titre" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Contenu de l'article</label>
+                    <textarea class="form-control" name="content" id="content" rows="10" required></textarea>
+                </div>
+
+                <div class="custom-file">
+                    <label for="picture">Images</label><br>
+                    <input type="file" class="custom-file-input" name="picture" id="picture" aria-describedby="image" required multiple>
+                </div>
+            
+                {# {{ form(form) }} #}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+</div>

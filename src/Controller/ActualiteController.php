@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\PostLike;
 use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
@@ -84,6 +85,14 @@ class ActualiteController extends AbstractController
         ], 200);
 
         return $this->json(['code' => 200, 'message' => 'Ca marche bien'], 200);
+    }
+
+    #[Route('/addArticle', name: 'app_addarticle')]
+    public function addArticle(): Response
+    {
+        $article = new Post();
+
+        return $this->render('Modal/articlemodal.html.twig');
     }
 
 }

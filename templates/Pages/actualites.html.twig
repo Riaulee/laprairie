@@ -6,8 +6,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div id="banner">
-                <div class="row rounded p-3 opacity-100 d-flex align-items-center shadow-sm"
-                    style="background-color: white;">
+                <div class="row rounded p-3 opacity-100 d-flex align-items-center shadow-sm bg-white">
                     <div class="text-center">
                         <h2 class="display-3 fw-bolder">
                             <img src="../img/site/eupatoire.jpg" alt="" style="max-width: 5rem;">
@@ -25,32 +24,46 @@
 
 {% block body %}
 <div class="container-fluid mb-5">
+    <div class="row mb-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 bg-white shadow p-3 d-flex flex-row justify-content-between rounded">
+            <div class="ms-5">
+                Ajouter un article
+            </div>
+            {# <div type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#articleModal" href="{{ path('app_addarticle') }}"> #}
+                <i class="fa-solid fa-circle-plus"></i>
+            {# </div> #}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    {# {% include "Modal/articlemodal.html.twig" %} #}
+
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="row">
                 {% for a in actualites %}
-                <div class="card mb-3 shadow border-success border-5">
+                <div class="card mb-3 shadow border-5">
                     <div class="row g-0">
-                        
                         <div class="col-md-4">
                             <img src="\img\site\tipi_2.jpg" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs">
                         </div>
                         <div class="col-md-8">
-                            
-                            <div class="card-body">
-                                <h5 class="card-title">{{ a.title }}</h5>
-                                <p class="card-text">{{ a.content }}</p>
-                                {# <p class="card-text">Auteur : {{ a.id_user_id }}</p> #}
-                                <p class="card-text"><small class="text-muted">Dernière mise à jour le par </small></p>
+                            <div class="card-body p-5 h-100">
+                                <div class="row h-100">
+                                    <h5 class="card-title text-center">{{ a.title }}</h5>
+                                    <p class="card-text">{{ a.content }}</p>
+                                    {# <p class="card-text">Auteur : {{ a.id_user_id }}</p> #}
+                                    <p class="card-text d-flex align-items-end justify-content-end"><small
+                                            class="text-muted">Dernière mise à jour le par </small></p>
+                                </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 {% endfor %}
                 {# display navigation #}
-                <div class="navigation">
+                <div class="navigation d-flex justify-content-center">
                     {{ knp_pagination_render(actualites) }}
                 </div>
             </div>

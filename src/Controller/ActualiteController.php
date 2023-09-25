@@ -3,15 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Entity\PostLike;
+use App\Form\ArticleAddType;
 use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ActualiteController extends AbstractController
 {
@@ -26,10 +31,8 @@ class ActualiteController extends AbstractController
     #[Route('/actualite', name: 'app_actualite')]
     public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        // $actualites = $repository->findBy([], ['title' => 'asc']);
-
         $actualites = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findBy([], ['id' => 'desc']),
             $request->query->getInt('page', 1), /*page number*/
             6 /*limit per page*/
         );
@@ -87,12 +90,49 @@ class ActualiteController extends AbstractController
         return $this->json(['code' => 200, 'message' => 'Ca marche bien'], 200);
     }
 
+    /**
+     * Fonction permettant d'afficher le formulaire d'ajout d'article
+     *
+     * @return Response
+     */
     #[Route('/addArticle', name: 'app_addarticle')]
-    public function addArticle(): Response
-    {
-        $article = new Post();
+    public function addArticle(Request $request, EntityManagerInterface $manager, Security $security, AuthorizationCheckerInterface $authChecker): Response
+{
+    $user = $security->getUser();
+    
+    if (!$authChecker->isGranted('ROLE_EDITOR')) {
+        throw new AccessDeniedException('Vous n\'êtes pas autorisé à ajouter un article.');
+    }
 
-        return $this->render('Modal/articlemodal.html.twig');
+    if (!$user) {
+        $this->addFlash('error', 'Vous devez être connecté pour ajouter un article.');
+        return $this->redirectToRoute('app_login');
+    }
+
+    if ($user) {
+    $article = new Post();
+    $form = $this->createForm(ArticleAddType::class, $article);
+    $formView = $form->createView(); // Obtenir la vue du formulaire
+
+    $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+            $article->setIdUser($user);
+            // dd($article);
+            $manager->persist($article);
+            $manager->flush();
+
+            $this->addFlash('success', 'L\'article a été ajouté avec succès.');
+            return $this->redirectToRoute('app_actualite');
+
+        }
+    }else{
+
+    }
+
+    return $this->render('Pages/addArticle.html.twig', [
+        'form' => $formView, 
+    ]);
     }
 
 }

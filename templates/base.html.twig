@@ -27,12 +27,14 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{asset('js/like.js')}}"></script>
+    <script src="{{asset('js/alerte.js')}}"></script>
     {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 
 <body style="background-image: url(img/site/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
 cover; background-attachment: fixed;">
+    {{ include('Messages/flash_messages.html.twig') }}
     {% block nav %}
     {% include "elements/_nav.html.twig" %}
     {% endblock nav %}

@@ -23,9 +23,11 @@
 {% endblock %}
 
 {% block body %}
+
 <div class="container-fluid mb-5">
     <div class="row mb-5">
         <div class="col-md-2"></div>
+        {% if is_granted('ROLE_EDITOR') %}
         <div class="col-md-8 bg-white shadow p-3 d-flex flex-row justify-content-between rounded">
             <div class="ms-5">
                 Ajouter un article
@@ -36,6 +38,7 @@
                 {# </div> #}
                 </a>
         </div>
+        {% endif %}
         <div class="col-md-2"></div>
     </div>
     {# {% include "Modal/articlemodal.html.twig" %} #}
@@ -57,7 +60,13 @@
                                     <p class="card-text">{{ a.content }}</p>
                                     {# <p class="card-text">Auteur : {{ a.id_user_id }}</p> #}
                                     <p class="card-text d-flex align-items-end justify-content-end"><small
-                                            class="text-muted">Dernière mise à jour le par </small></p>
+                                            class="text-muted">Dernière mise à jour le 
+                                            {% if a.updateAt != null||'' %}
+                                            {{ a.updateAt|date("d/m/Y") }} 
+                                            {% else %}
+                                            {{ a.createdAt|date("d/m/Y") }}
+                                            {% endif %}
+                                            par {{ app.user.pseudo }}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -73,4 +82,5 @@
         <div class="col-md-2"></div>
     </div>
 </div>
+
 {% endblock %}

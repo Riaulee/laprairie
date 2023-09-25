@@ -8,9 +8,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+// use Symfony\Component\Validator\Constraints\File;
 
 class ArticleAddType extends AbstractType
 {
@@ -34,8 +36,15 @@ class ArticleAddType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => "Contenu de l'article",
             ])
+            ->add('visuals', FileType::class, [
+                'label' => "Images/Vidéos",
+                'required' => false,
+                'data_class' => null,
+                'multiple' => true,
+            ])
             ->add('submit', SubmitType::class,[
-                'label' => 'Publier'
+                'label' => 'Publier',
+                // 'class' => Visual::class,
             ]);
     }
 

@@ -3,10 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\ImageOptimizer;
+use App\Utils\ImageOptimizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -148,7 +149,6 @@ class UserCrudController extends AbstractCrudController
 
             return $targetFilename; // Retourne le nom du fichier enregistré
     }
-
 
 
     }

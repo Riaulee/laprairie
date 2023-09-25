@@ -33,6 +33,11 @@ class Visual
         return $this->visualName;
     }
 
+    public function __toString(): string
+    {
+        return $this->getVisualName();
+    }
+    
     public function setVisualName(?string $visualName): static
     {
         $this->visualName = $visualName;

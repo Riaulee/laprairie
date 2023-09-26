@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Visual;
 use App\Entity\PostLike;
 use App\Form\ArticleAddType;
 use App\Repository\PostRepository;
@@ -113,12 +114,21 @@ class ActualiteController extends AbstractController
     $article = new Post();
     $form = $this->createForm(ArticleAddType::class, $article);
     $formView = $form->createView(); // Obtenir la vue du formulaire
+    $visual = new Visual();
 
     $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $listeimage = $form->get('visuals')->getData();
             $article = $form->getData();
             $article->setIdUser($user);
             // dd($article);
+            if($listeimage){
+                foreach ($article->getVisuals() as $visual) {
+                    $visual->setArticle($article);
+                    $manager->persist($visual);
+                }
+            }
+
             $manager->persist($article);
             $manager->flush();
 

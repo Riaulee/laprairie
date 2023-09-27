@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\Visual;
 use App\Entity\PostType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,7 +42,6 @@ class ArticleAddType extends AbstractType
             ->add('visuals', FileType::class, [
                 'label' => "Images/Vidéos",
                 'required' => false,
-                'data_class' => null,
                 'multiple' => true,
                 'constraints' => [
                     new Collection([

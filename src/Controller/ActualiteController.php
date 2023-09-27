@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Visual;
 use App\Entity\PostLike;
+use App\Utils\FileUploader;
 use App\Form\ArticleAddType;
 use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
@@ -97,7 +98,7 @@ class ActualiteController extends AbstractController
      * @return Response
      */
     #[Route('/addArticle', name: 'app_addarticle')]
-    public function addArticle(Request $request, EntityManagerInterface $manager, Security $security, AuthorizationCheckerInterface $authChecker): Response
+    public function addArticle(Request $request, EntityManagerInterface $manager, Security $security, AuthorizationCheckerInterface $authChecker, FileUploader $fileUploader): Response
 {
     $user = $security->getUser();
     
@@ -114,22 +115,34 @@ class ActualiteController extends AbstractController
     $article = new Post();
     $form = $this->createForm(ArticleAddType::class, $article);
     $formView = $form->createView(); // Obtenir la vue du formulaire
-    $visual = new Visual();
 
     $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $listeimage = $form->get('visuals')->getData();
-            $article = $form->getData();
             $article->setIdUser($user);
-            // dd($article);
-            if($listeimage){
-                foreach ($article->getVisuals() as $visual) {
-                    $visual->setArticle($article);
-                    $manager->persist($visual);
-                }
-            }
+            //Aller chercher la liste des fichiers du form
+            $listeImages = $form->get('visuals')->getData();
 
+            // dd($article);
+            foreach ($listeImages as $image) {
+                $visual = new Visual();
+
+                // Télécharger le fichier en utilisant le service FileUploader
+                $fileName = $fileUploader->upload($image);
+
+                // Définir le nom du fichier dans l'entité Visual
+                $visual->setVisualName($fileName);
+
+                // Associer l'entité Visual à l'article
+                $visual->setIdPost($article);
+
+                // Persister l'entité Visual
+                $manager->persist($visual);
+                }
+
+            // Persister l'entité Article
             $manager->persist($article);
+
+            //Tout enregistrer
             $manager->flush();
 
             $this->addFlash('success', 'L\'article a été ajouté avec succès.');

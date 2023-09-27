@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Collection;
+
 // use Symfony\Component\Validator\Constraints\File;
 
 class ArticleAddType extends AbstractType
@@ -43,12 +45,18 @@ class ArticleAddType extends AbstractType
                 'data_class' => null,
                 'multiple' => true,
                 'constraints' => [
-                    new File([
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Merci de choisir des documents au formats : png, jpg ou avi',
+                    new Collection([
+                        'fields' => [
+                            'file' => new File([
+                                'extensions' => [
+                                    'pdf',
+                                    'png',
+                                    'jpg',
+                                    'avi',
+                                ],
+                                'extensionsMessage' => 'Merci de choisir des documents avec les extensions : pdf, png, jpg ou avi',
+                            ])
+                        ]
                     ])
                 ],
             ])

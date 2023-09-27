@@ -1,18 +1,23 @@
 <?php
-// src/Utils/FileUploader.php
+// src/Controller/Utils/FileUploader.php
 
 namespace App\Utils;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FileUploader
 {
     public function __construct(
         private string $targetDirectory,
         private SluggerInterface $slugger,
+        private LoggerInterface $logger,
     ) {
+        $this->targetDirectory = $targetDirectory;
+        $this->slugger = $slugger;
+        $this->logger = $logger;
     }
 
     public function upload(UploadedFile $file): string
@@ -24,7 +29,7 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            $this->addFlash('error', 'Une erreur s\'est produite lors du téléchargement du fichier.');
+            $this->logger->error('Une erreur s\'est produite lors du téléchargement du fichier : ' . $e->getMessage());
         }
 
         return $fileName;

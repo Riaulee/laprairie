@@ -121,23 +121,27 @@ class ActualiteController extends AbstractController
 
 
     $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted()) {
             $article->setIdUser($user);
 
-            // Récupérer les noms de fichiers transformés
-            $filenames = $form->get('visuals')->getData();
+            // $article = $form->get('visuals')->getData();
+            // // Récupérer les noms de fichiers transformés
+            // $filenames = $form->get('visuals')->getData();
 
-            foreach ($filenames as $filename) {
-
-                // Associer à l'article
-                $filename = $fileUploader->upload($filenames);
-
-                $article->addVisual($filename);
-                // https://symfony.com/doc/current/form/data_transformers.html#example-2-transforming-an-issue-number-into-an-issue-entity
-                // Persister    
-                $manager->persist($article);
+            foreach ($article->getFilenames() as $filename) {
+                 $visual = new Visual;
+                 $visual->setVisualName("test");
+                 $visual->setIdPost($article);
+                 $article->addVisual($visual);
             }
+            //     // Associer à l'article
+            //     $file = $fileUploader->upload($filename);
+
+            //     $article->addVisual($file);
+            //     // https://symfony.com/doc/current/form/data_transformers.html#example-2-transforming-an-issue-number-into-an-issue-entity
+            //     // Persister    
+            //     $manager->persist($article);
+            // }
 
             // Persister l'entité Article
             $manager->persist($article);
@@ -148,6 +152,8 @@ class ActualiteController extends AbstractController
             $this->addFlash('success', 'L\'article a été ajouté avec succès.');
             return $this->redirectToRoute('app_actualite');
 
+        }else{
+            $this->addFlash('success', $form->isSubmitted());
         }
     }
 

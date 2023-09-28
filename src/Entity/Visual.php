@@ -19,7 +19,7 @@ class Visual
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
-    #[ORM\ManyToOne(inversedBy: 'visuals')]
+    #[ORM\ManyToOne(inversedBy: 'visuals', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?post $idPost = null;
 

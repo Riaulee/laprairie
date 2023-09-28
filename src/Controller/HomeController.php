@@ -39,19 +39,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * Permet de "liker" ou "unliker" un évènement
-     * 
-     * @param App\Entity\Post $posts
-     * @param ObjectManager $manager
-     * @param PostLikeRepository $repoLike
-     * @return Response
-     * 
-     * @var PostRepository;
-     * 
-     */
-    
-
     #[Route('/quisommesnous', name: 'app_quisommesnous')]
     public function quisommesnous(): Response
     {

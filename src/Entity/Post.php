@@ -44,11 +44,13 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?user $idUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class)]
+    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class,cascade: ["persist"])]
     private Collection $visuals;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
     private Collection $likes;
+
+    private Collection $filenames;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
@@ -57,6 +59,7 @@ class Post
     public function __construct()
     {
         $this->visuals = new ArrayCollection();
+        $this->filenames = new ArrayCollection();
         $this->likes = new ArrayCollection();
     }
 
@@ -169,6 +172,11 @@ class Post
         return $this->visuals;
     }
 
+    public function getFilenames(): Collection
+    {
+        return $this->filenames;
+    }
+
     public function addVisual(Visual $visual): static
     {
         if (!$this->visuals->contains($visual)) {
@@ -176,6 +184,21 @@ class Post
             $visual->setIdPost($this);
         }
 
+        return $this;
+    }
+
+    
+    public function addFilename(?string $filename): static
+    {
+        if (!$this->filenames->contains($filename)) {
+            $this->filenames->add($filename);
+        }
+
+        return $this;
+    }
+    public function removeFilename(?string $filename): static
+    {
+        $this->filenames->removeElement($filename);
         return $this;
     }
 

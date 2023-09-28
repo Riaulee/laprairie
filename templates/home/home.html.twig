@@ -5,34 +5,6 @@
 {% block body %}
 
 <div class="container-fluid">
-
-    {# Articles boucle #}
-    {# <div class="row">
-        <div class="col-md-12">
-            <h1>Liste des evenements</h1>
-            <ul>
-                {% for e in posts %}
-                <li>
-                    <h2>{{ e.title }}</h2>
-
-                    <p>{{ e.content }}</p>
-
-                    <a href="{{ path('app_like', {'id': e.id}) }}" class="btn btn-link js-like" data-action="like">
-                        {% if app.user and e.isLikedByUser(app.user)%}
-                        <i class="fa-solid fa-thumbs-up" style="color: #26a646;"></i>
-                        {% else %}
-                        <i class="fa-regular fa-thumbs-up"></i>
-                        {% endif %}
-                        <span class="js-likes">{{e.likes | length}}</span>
-                        <span class="js-label">J'AIME</span>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div> #}
-
-
     <div class="row my-5">
         <div class="col-md-2"></div>
         <div class="col-md-8 rounded bg-white">

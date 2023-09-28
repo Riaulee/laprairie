@@ -32,34 +32,23 @@
                         <div class="col-4 col-12-medium">
                             <div class="row ">
                                 <div class="btn my-2 rounded py-4" style="background-image: url('../img/site/bleu.jpg')">
-                                    <div class="d-flex align-items-center justify-content-around">
+                                    <div class="">
                                         {% if app.user %}
-                                        <h3 class="display-6 fw-bolder text-light">
-                                            <a href="{{'/logout'}}">
-                                                Se déconnecter
-                                            </a>
-                                        </h3>
-                                        <a href="{{'/logout'}}">
-                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
-                                                style="color: #ffffff;"></i>
+                                        <a href="{{'/logout'}}" class="d-flex align-items-center justify-content-around">
+                                            <p class="display-6 fw-bolder text-light" >Se déconnecter</p>
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
                                         </a>
                                         {% else %}
-                                        <h3 class="display-6 fw-bolder text-light">
-                                            <a href="{{'/login'}}">
-                                                Se connecter
-                                            </a>
-                                        </h3>
-                                        <a href="{{'/login'}}">
-                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
-                                                style="color: #ffffff;"></i>
+                                        <a href="{{'/login'}}" class="d-flex align-items-center justify-content-around">
+                                            <p class="display-6 fw-bolder text-light">Se connecter</p>
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
                                         </a>
                                         {% endif %}
                                     </div>
                                 </div>
-                                <p class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
+                                <a href="{{'/actualite'}}" class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
                                     Plus d'infos
-
-                                </p>
+                                </a>
                             </div>
                         </div>
                     </div>

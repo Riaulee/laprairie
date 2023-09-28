@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Entity\User;
-use App\Entity\Visual;
 use App\Entity\PostLike;
+use App\Entity\Visual;
 use App\Utils\FileUploader;
 use App\Form\ArticleAddType;
 use App\Repository\PostRepository;
@@ -98,16 +97,20 @@ class ActualiteController extends AbstractController
      * @return Response
      */
     #[Route('/addArticle', name: 'app_addarticle')]
-    public function addArticle(Request $request, EntityManagerInterface $manager, Security $security, AuthorizationCheckerInterface $authChecker, FileUploader $fileUploader): Response
+    public function addArticle(Request $request, 
+    EntityManagerInterface $manager, 
+    Security $security, 
+    AuthorizationCheckerInterface $authChecker,
+    FileUploader $fileUploader
+    ): Response
 {
     $user = $security->getUser();
-    
+
     if (!$authChecker->isGranted('ROLE_EDITOR')) {
         throw new AccessDeniedException('Vous n\'êtes pas autorisé à ajouter un article.');
     }
 
     if (!$user) {
-        $this->addFlash('error', 'Vous devez être connecté pour ajouter un article.');
         return $this->redirectToRoute('app_login');
     }
 
@@ -116,28 +119,25 @@ class ActualiteController extends AbstractController
     $form = $this->createForm(ArticleAddType::class, $article);
     $formView = $form->createView(); // Obtenir la vue du formulaire
 
+
     $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $article->setIdUser($user);
-            //Aller chercher la liste des fichiers du form
-            $listeImages = $form->get('visuals')->getData();
 
-            // dd($article);
-            foreach ($listeImages as $image) {
-                $visual = new Visual();
+            // Récupérer les noms de fichiers transformés
+            $filenames = $form->get('visuals')->getData();
 
-                // Télécharger le fichier en utilisant le service FileUploader
-                $fileName = $fileUploader->upload($image);
+            foreach ($filenames as $filename) {
 
-                // Définir le nom du fichier dans l'entité Visual
-                $visual->setVisualName($fileName);
+                // Associer à l'article
+                $filename = $fileUploader->upload($filenames);
 
-                // Associer l'entité Visual à l'article
-                $visual->setIdPost($article);
-
-                // Persister l'entité Visual
-                $manager->persist($visual);
-                }
+                $article->addVisual($filename);
+                // https://symfony.com/doc/current/form/data_transformers.html#example-2-transforming-an-issue-number-into-an-issue-entity
+                // Persister    
+                $manager->persist($article);
+            }
 
             // Persister l'entité Article
             $manager->persist($article);
@@ -149,8 +149,6 @@ class ActualiteController extends AbstractController
             return $this->redirectToRoute('app_actualite');
 
         }
-    }else{
-
     }
 
     return $this->render('Pages/addArticle.html.twig', [

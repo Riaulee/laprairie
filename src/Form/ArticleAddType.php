@@ -63,10 +63,11 @@ class ArticleAddType extends AbstractType
             //     ],
             // ])
 
-            ->add('filenames', FileType::class, [
+            ->add('visuals', FileType::class, [
                 'label' => "Images/Vidéos",
                 'required' => false,
                 'multiple' => true,
+                'mapped' => false
                 ])
 
             ->add('submit', SubmitType::class,[

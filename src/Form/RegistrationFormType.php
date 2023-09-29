@@ -19,6 +19,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
+            ->add('pseudo')
             ->add('email')
             ->add('phone')
             ->add('agreeTerms', CheckboxType::class, [

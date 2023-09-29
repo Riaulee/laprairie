@@ -121,27 +121,16 @@ class ActualiteController extends AbstractController
 
 
     $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $article->setIdUser($user);
 
-            // $article = $form->get('visuals')->getData();
-            // // Récupérer les noms de fichiers transformés
-            // $filenames = $form->get('visuals')->getData();
-
-            foreach ($article->getFilenames() as $filename) {
+            $visuals = $form->get('visuals')->getData();
+            foreach ($visuals as $filename) {
                  $visual = new Visual;
-                 $visual->setVisualName("test");
+                 $visual->setVisualName($filename);
                  $visual->setIdPost($article);
                  $article->addVisual($visual);
             }
-            //     // Associer à l'article
-            //     $file = $fileUploader->upload($filename);
-
-            //     $article->addVisual($file);
-            //     // https://symfony.com/doc/current/form/data_transformers.html#example-2-transforming-an-issue-number-into-an-issue-entity
-            //     // Persister    
-            //     $manager->persist($article);
-            // }
 
             // Persister l'entité Article
             $manager->persist($article);
@@ -153,7 +142,7 @@ class ActualiteController extends AbstractController
             return $this->redirectToRoute('app_actualite');
 
         }else{
-            $this->addFlash('success', $form->isSubmitted());
+            $this->addFlash('error', "Erreur de validatio");
         }
     }
 

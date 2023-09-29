@@ -24,14 +24,14 @@ class HomeController extends AbstractController
     private $em;
     private $post;
 
-    public function __construct(PostRepository $repo, EntityManagerInterface $em)
+    public function __construct(PostRepository $repo, EntityManagerInterface $em, )
     {
         $this->repository = $repo; //Initialisation du repository
         $this->em = $em; //Initialisation du manager
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(PostRepository $repo): Response
+    public function index(PostRepository $repo, ): Response
     {
         $posts = $repo->findBy([], ['title' => 'asc']);
         return $this->render('home/home.html.twig', [

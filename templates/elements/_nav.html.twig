@@ -8,31 +8,38 @@
         <nav class="navbar navbar-expand-lg rounded my-5 p-3 shadow bg-white">
           <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">Accueil</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5 fw-bold">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ path('app_quisommesnous') }}">
-                    <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
-                    Qui sommes-nous?
-                    <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                  <a id = "navQuiSommeNous" class="nav-link" aria-current="page" href="{{ path('app_quisommesnous') }}" onclick="activeNav('navQuiSommeNous')">
+                    <div class="d-flex flex-row justify-content-center">
+                      <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                      Qui sommes-nous?
+                      <img src="../img/site/achilleemillefeuille.jpg" alt="" style="max-width: 2rem;">
+                    </div>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_actualite') }}">
-                    <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
-                    Actualités
-                    <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                  <a id = "navActualite" class="nav-link" href="{{ path('app_actualite') }}">
+                    <div class="d-flex flex-row justify-content-center">
+                      <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                      Actualités
+                      <img src="../img/site/camomille.jpg" alt="" style="max-width: 2rem;">
+                    </div>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_passezalaction') }}">
-                    <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
-                    Passer à l'action
-                    <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                  <a id = "navPassezALAction" class="nav-link" href="{{ path('app_passezalaction') }}">
+                    <div class="d-flex flex-row justify-content-center">
+                      <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                      Passer à l'action
+                      <img src="../img/site/lierreterrestre.jpg" alt="" style="max-width: 2rem;">
+                    </div>
                   </a>
                 </li>
                 {% if app.user %}
@@ -48,7 +55,7 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form> #}
             </div>
-            </div>
+          </div>
         </nav>
       </div>
     </div>

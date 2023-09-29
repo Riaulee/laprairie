@@ -16,38 +16,39 @@
                 <div id="banner">
                     <div class="row rounded p-3 opacity-100 d-flex align-items-center shadow-sm bg-white">
                         <div class="col-8 col-12-medium">
-                            <div class="text-center">
                                 <div class="row">
-
-                                    <p class="display-4 fw-bolder">
+                                    <div class="d-flex flex-row justify-content-center">
                                         <img src="../img/site/eupatoire.jpg" alt="" style="max-width: 5rem;">
-                                        Collectif La Prairie
+                                        <h1 class="fw-bolder display-4">
+                                            Collectif La Prairie
+                                        </h1>
                                         <img src="../img/site/eupatoire.jpg" alt="" style="max-width: 5rem;">
-                                    </p>
-
+                                    </div>
                                 </div>
-                                <p class="fs-2">Projet communautaire de végétalisation urbaine</p>
-                            </div>
+                                <p class="fs-2 text-center">Projet communautaire de végétalisation urbaine</p>
                         </div>
                         <div class="col-4 col-12-medium">
-                            <div class="row ">
-                                <div class="btn my-2 rounded py-4" style="background-image: url('../img/site/bleu.jpg')">
-                                    <div class="">
+                            <div class="row">
+                                <div class="btn my-2 rounded py-4"
+                                    style="background-image: url('../img/site/bleu.jpg'); background-repeat: no-repeat;background-size: cover;">
                                         {% if app.user %}
-                                        <a href="{{'/logout'}}" class="d-flex align-items-center justify-content-around">
-                                            <p class="display-6 fw-bolder text-light" >Se déconnecter</p>
-                                            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
+                                        <a href="{{'/logout'}}"
+                                            class="d-flex align-items-center justify-content-around">
+                                            <p class="fs-2 fw-bolder text-light">Se déconnecter</p>
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
+                                                style="color: #ffffff;"></i>
                                         </a>
                                         {% else %}
                                         <a href="{{'/login'}}" class="d-flex align-items-center justify-content-around">
-                                            <p class="display-6 fw-bolder text-light">Se connecter</p>
-                                            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
+                                            <p class="fs-2 fw-bolder text-light">Se connecter</p>
+                                            <i class="fa-solid fa-circle-arrow-right fa-2xl"
+                                                style="color: #ffffff;"></i>
                                         </a>
                                         {% endif %}
-                                    </div>
                                 </div>
-                                <a href="{{'/actualite'}}" class="btn btn-secondary my-2 rounded py-4 fs-3 fw-bolder">
-                                    Plus d'infos
+                                <a href="{{'/actualite'}}" class="btn btn-secondary my-2 rounded py-4 d-flex align-items-center justify-content-around">
+                                    <p class="fs-2 fw-bolder text-light">Plus d'infos</p>
+                                    <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #ffffff;"></i>
                                 </a>
                             </div>
                         </div>

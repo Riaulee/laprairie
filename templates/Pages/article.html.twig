@@ -42,9 +42,9 @@
                     </div>
                     <div class="col-md-8">
                         <div class="text-center">
-                            <h2 class="display-3 fw-bolder">
+                            <p class="display-3 fw-bolder">
                                 {{ article.title }}
-                            </h2>
+                            </p>
                             <p>
                                 {{ article.content }}
                             </p>
@@ -55,6 +55,20 @@
             </div>
         </div>
         <div class="col-md-2"></div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 rounded p-3 opacity-100 d-flex align-items-center shadow-sm bg-white">
+                {% if home.comment|lenght <1 %}
+                    <p>Il n'existe aucun commentaire pour cet article</p>
+                    {# {i} #}
+                {% else %}
+                    {{ home.comments|lenght }} Commentaires
+                {% endif %}
+                {{ form(form) }}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
     </div>
 </div>
 {% endblock %}

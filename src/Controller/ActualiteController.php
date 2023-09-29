@@ -119,8 +119,8 @@ class ActualiteController extends AbstractController
     $form = $this->createForm(ArticleAddType::class, $article);
     $formView = $form->createView(); // Obtenir la vue du formulaire
 
-
-    $form->handleRequest($request);
+    if($request->isMethod('POST')){
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $article->setIdUser($user);
 
@@ -129,10 +129,10 @@ class ActualiteController extends AbstractController
             // $filenames = $form->get('visuals')->getData();
 
             foreach ($article->getFilenames() as $filename) {
-                 $visual = new Visual;
-                 $visual->setVisualName("test");
-                 $visual->setIdPost($article);
-                 $article->addVisual($visual);
+                $visual = new Visual;
+                $visual->setVisualName("test");
+                $visual->setIdPost($article);
+                $article->addVisual($visual);
             }
             //     // Associer à l'article
             //     $file = $fileUploader->upload($filename);
@@ -151,10 +151,12 @@ class ActualiteController extends AbstractController
 
             $this->addFlash('success', 'L\'article a été ajouté avec succès.');
             return $this->redirectToRoute('app_actualite');
-
-        }else{
+        } else {
             $this->addFlash('success', $form->isSubmitted());
         }
+
+    }
+    
     }
 
     return $this->render('Pages/addArticle.html.twig', [

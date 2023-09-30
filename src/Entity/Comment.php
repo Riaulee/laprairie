@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -20,25 +18,17 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Post $posts = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $users = null;
+
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?self $Posts = null;
-
-    #[ORM\OneToMany(mappedBy: 'Posts', targetEntity: self::class, orphanRemoval: true)]
-    private Collection $comments;
-
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?self $Users = null;
-
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -57,6 +47,30 @@ class Comment
         return $this;
     }
 
+    public function getPosts(): ?Post
+    {
+        return $this->posts;
+    }
+
+    public function setPosts(?Post $posts): static
+    {
+        $this->posts = $posts;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -65,60 +79,6 @@ class Comment
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getPosts(): ?self
-    {
-        return $this->Posts;
-    }
-
-    public function setPosts(?self $Posts): static
-    {
-        $this->Posts = $Posts;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(self $comment): static
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setPosts($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(self $comment): static
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getPosts() === $this) {
-                $comment->setPosts(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getUsers(): ?self
-    {
-        return $this->Users;
-    }
-
-    public function setUsers(?self $Users): static
-    {
-        $this->Users = $Users;
 
         return $this;
     }

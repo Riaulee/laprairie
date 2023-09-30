@@ -4,19 +4,21 @@
 <div class="container-fluid mb-5">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div id="banner">
-                <div class="row rounded p-3 opacity-100 d-flex align-items-center shadow-sm bg-white">
+        <div class="col-md-8 rounded p-3 opacity-100 d-flex align-items-center shadow bg-white">
+            <div class="container">
+                <div class="row">
                     <div class="col-md-4">
-                        <div id="carouselArticle" class="carousel carousel-dark slide shadow-sm" data-bs-ride="carousel">
-                        
+                        <div id="carouselArticle" class="carousel carousel-dark slide shadow-sm"
+                            data-bs-ride="carousel">
+
                             <!-- Indicators/dots -->
                             <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0" class="active"></button>
+                                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0"
+                                    class="active"></button>
                                 <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="1"></button>
                                 <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="2"></button>
                             </div>
-                        
+
                             <!-- The slideshow/carousel -->
                             <div class="carousel-inner">
                                 <div class="carousel-item active rounded" style="max-height: 25rem;">
@@ -30,12 +32,14 @@
                                     <img src="../img/site/eupatoire.jpg" alt="New York" class="d-block w-100">
                                 </div>
                             </div>
-                        
+
                             <!-- Left and right controls/icons -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
+                                data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon"></span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
+                                data-bs-slide="next">
                                 <span class="carousel-control-next-icon"></span>
                             </button>
                         </div>
@@ -50,27 +54,45 @@
                             </p>
                         </div>
                     </div>
-                    
+                </div>
+
+                <div class="row ">
+                    <div class="d-flex justify-content-end">
+                        {% if comments|length <1 %} <p>Il n'existe aucun commentaire pour cet article</p>
+                            {% else %}
+                            {{ comments|length }} Commentaires
+                            {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    {{ form(form) }}
+                </div>
+
+                <div class="row mt-5 d-flex justify-content-evenly">
+                    {% for comment in comments %}
+                    <div class="col-md-3 rounder bg-light m-3 shadow">
+                        <p>
+                            <small class="text-muted">
+                                "{{ comment.content }}"
+                            </small>
+                        </p>
+                        <p class="text-end">
+                            <small class="text-muted">
+                                Par {{ comment.users.pseudo }} le {{ comment.createdAt|date('d/m/Y') }} à {{
+                                comment.createdAt|date('H:i') }}
+                            </small>
+                        </p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="col-md-2"></div>
-
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 rounded p-3 opacity-100 d-flex align-items-center shadow-sm bg-white">
-                {% if home.comment|lenght <1 %}
-                    <p>Il n'existe aucun commentaire pour cet article</p>
-                    {# {i} #}
-                {% else %}
-                    {{ home.comments|lenght }} Commentaires
-                {% endif %}
-                {{ form(form) }}
-            </div>
-            <div class="col-md-2"></div>
-        </div>
     </div>
+    <div class="col-md-2"></div>
+
 </div>
+
 {% endblock %}
 
 {% block body %}

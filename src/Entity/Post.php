@@ -44,7 +44,7 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?user $idUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class,cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class, cascade: ["persist"])]
     private Collection $visuals;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]

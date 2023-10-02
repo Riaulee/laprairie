@@ -121,16 +121,16 @@ class ActualiteController extends AbstractController
 
     if($request->isMethod('POST')){
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $article->setIdUser($user);
 
-            // $article = $form->get('visuals')->getData();
+            $visual = $form->get('visuals')->getData();
             // // Récupérer les noms de fichiers transformés
             // $filenames = $form->get('visuals')->getData();
 
-            foreach ($article->getFilenames() as $filename) {
+            foreach ($article->getVisuals() as $filename) {
                 $visual = new Visual;
-                $visual->setVisualName("test");
+                $visual->setVisualName($filename);
                 $visual->setIdPost($article);
                 $article->addVisual($visual);
             }
@@ -140,11 +140,11 @@ class ActualiteController extends AbstractController
 
             //Tout enregistrer
             $manager->flush();
-
+ 
             $this->addFlash('success', 'L\'article a été ajouté avec succès.');
             return $this->redirectToRoute('app_actualite');
         } else {
-            $this->addFlash('success', $form->isSubmitted());
+            $this->addFlash('error', "Erreur de validatio");;
         }
 
     }

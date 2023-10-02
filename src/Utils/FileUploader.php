@@ -29,7 +29,7 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            $this->logger->error('Une erreur s\'est produite lors du téléchargement du fichier : ' . $e->getMessage());
+            $this->logger->error('Une erreur s\'est produite lors du téléchargement du fichier : ' . $e->getMessage(). 'Message présent dans FileUploader');
         }
 
         return $fileName;

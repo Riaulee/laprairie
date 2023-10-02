@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Entity\PostLike;
 use App\Entity\Visual;
+use App\Entity\PostLike;
 use App\Utils\FileUploader;
 use App\Form\ArticleAddType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
+use App\Repository\VisualRepository;
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +32,7 @@ class ActualiteController extends AbstractController
      * @return Response
      */
     #[Route('/actualite', name: 'app_actualite')]
-    public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request, VisualRepository $vrepo, UserRepository $urepo): Response
     {
         $actualites = $paginator->paginate(
             $repository->findBy([], ['id' => 'desc']),
@@ -38,8 +40,18 @@ class ActualiteController extends AbstractController
             6 /*limit per page*/
         );
 
-        return $this->render('Pages/actualites.html.twig',
-            ['actualites' => $actualites]);
+        $actualitesIds = [];
+        foreach ($actualites as $actu) {
+            $actualitesIds[] = $actu->getId();
+        }
+
+        return $this->render(
+            'Pages/actualites.html.twig',
+            [
+                'actualites' => $actualites,
+                'visual' => $vrepo->findBy(['idPost' => $actualitesIds], ['id' => 'DESC'],1),
+            ]
+        );
     }
 
     #[Route('/post/{id}/like', name: 'app_like')]
@@ -97,63 +109,59 @@ class ActualiteController extends AbstractController
      * @return Response
      */
     #[Route('/addArticle', name: 'app_addarticle')]
-    public function addArticle(Request $request, 
-    EntityManagerInterface $manager, 
-    Security $security, 
-    AuthorizationCheckerInterface $authChecker,
-    FileUploader $fileUploader
-    ): Response
-{
-    $user = $security->getUser();
+    public function addArticle(
+        Request $request,
+        EntityManagerInterface $manager,
+        Security $security,
+        AuthorizationCheckerInterface $authChecker,
+        FileUploader $fileUploader,
+    ): Response {
+        $user = $security->getUser();
 
-    if (!$authChecker->isGranted('ROLE_EDITOR')) {
-        throw new AccessDeniedException('Vous n\'êtes pas autorisé à ajouter un article.');
-    }
-
-    if (!$user) {
-        return $this->redirectToRoute('app_login');
-    }
-
-    if ($user) {
-    $article = new Post();
-    $form = $this->createForm(ArticleAddType::class, $article);
-    $formView = $form->createView(); // Obtenir la vue du formulaire
-
-    if($request->isMethod('POST')){
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setIdUser($user);
-
-            $visual = $form->get('visuals')->getData();
-            // // Récupérer les noms de fichiers transformés
-            // $filenames = $form->get('visuals')->getData();
-
-            foreach ($article->getVisuals() as $filename) {
-                $visual = new Visual;
-                $visual->setVisualName($filename);
-                $visual->setIdPost($article);
-                $article->addVisual($visual);
-            }
-
-            // Persister l'entité Article
-            $manager->persist($article);
-
-            //Tout enregistrer
-            $manager->flush();
- 
-            $this->addFlash('success', 'L\'article a été ajouté avec succès.');
-            return $this->redirectToRoute('app_actualite');
-        } else {
-            $this->addFlash('error', "Erreur de validatio");;
+        if (!$authChecker->isGranted('ROLE_EDITOR')) {
+            throw new AccessDeniedException('Vous n\'êtes pas autorisé à ajouter un article.');
         }
 
-    }
-    
-    }
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
-    return $this->render('Pages/addArticle.html.twig', [
-        'form' => $formView, 
-    ]);
-    }
+        if ($user) {
+            $article = new Post();
+            $form = $this->createForm(ArticleAddType::class, $article);
+            $formView = $form->createView(); // Obtenir la vue du formulaire
 
+            if ($request->isMethod('POST')) {
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $article->setIdUser($user);
+
+                    $file = $form->get('visuals')->getData();
+
+                    foreach ($file as $file) {
+                        $visual = new Visual;
+                        $visual->setIdPost($article);
+                        $fileName = $fileUploader->upload($file);
+                        $visual->setVisualName($fileName);
+                        $article->addVisual($visual);
+                    }
+
+                    // Persister l'entité Article
+                    $manager->persist($article);
+
+                    //Tout enregistrer
+                    $manager->flush();
+
+                    $this->addFlash('success', 'L\'article a été ajouté avec succès.');
+                    return $this->redirectToRoute('app_actualite');
+                } else {
+                    $this->addFlash('error', "Erreur de validatio");;
+                }
+            }
+        }
+
+        return $this->render('Pages/addArticle.html.twig', [
+            'form' => $formView,
+        ]);
+    }
 }

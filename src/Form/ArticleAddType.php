@@ -42,37 +42,33 @@ class ArticleAddType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => "Contenu de l'article",
             ])
+            ->add('visuals', FileType::class, [
+                'label' => "Images/Vidéos",
+                'required' => false,
+                'multiple' => true,
+                'mapped' => false,
+                /* 'constraints' => [
+                    'Assert\File'([
+                            'extensions' => [
+                                'application/pdf',
+                                'image/png',
+                                'image/jpeg',
+                                'video/x-msvideo',
+                            ],
+                        'extensionsMessage' => 'Merci de choisir des documents avec les extensions : pdf, png, jpg ou avi',
+                        'uploadErrorMessage' => 'Une erreur s\'est produite lors du téléchargement du fichier.',
+                    ])
+                ], */
+            ])
+
             // ->add('visuals', FileType::class, [
             //     'label' => "Images/Vidéos",
             //     'required' => false,
             //     'multiple' => true,
-            //     'mapped' => false,
-            //     'constraints' => [
-            //         'file' => new File([
-            //             'extensions' => [
-            //                 'pdf',
-            //                 'png',
-            //                 'jpg',
-            //                 'avi',
-            //             ],
-            //             'extensionsMessage' => 'Merci de choisir des documents avec les extensions : pdf, png, jpg ou avi',
-            //             'uploadErrorMessage' => 'Une erreur s\'est produite lors du téléchargement du fichier.',
-            //             //https://openclassrooms.com/forum/sujet/erreur-symfony-5-multi-upload
-            //             //https://symfony.com/doc/current/controller/upload_file.html
-            //         ])
-            //     ],
-            // ])
+            //     'mapped' => false
+            //     ])
 
-            ->add('visuals', FileType::class, [
-                'label' => "Images/Vidéos",
-                'required' => false,
-                'multiple' => false,
-                'mapped' => false
-                ])
-
-            ->add('submit', SubmitType::class,[
-                'label' => 'Publier',
-            ]);
+            ->add('Publier', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

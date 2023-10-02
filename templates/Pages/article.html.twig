@@ -21,16 +21,16 @@
 
                             <!-- The slideshow/carousel -->
                             <div class="carousel-inner">
+                                {% for a in article  %}
                                 <div class="carousel-item active rounded" style="max-height: 25rem;">
-                                    <img src="../img/site/eupatoire.jpg" alt="Los Angeles" class="d-block w-100"
+                                    <img src="img/articles/{{ a.visuals.visualName }}" alt="Los Angeles" class="d-block w-100"
                                         style="height: 100%; object-fit: cover;">
                                 </div>
-                                <div class="carousel-item rounded" style="max-height: 25rem;">
-                                    <img src="../img/site/eupatoire.jpg" alt="Chicago" class="d-block w-100">
-                                </div>
-                                <div class="carousel-item rounded" style="max-height: 25rem;">
-                                    <img src="../img/site/eupatoire.jpg" alt="New York" class="d-block w-100">
-                                </div>
+                                {{ a.visuals.visualName }}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                {{ article.visuals.first('visualName') }}
                             </div>
 
                             <!-- Left and right controls/icons -->
@@ -59,15 +59,19 @@
                 <div class="row ">
                     <div class="d-flex justify-content-end">
                         {% if comments|length <1 %} <p>Il n'existe aucun commentaire pour cet article</p>
+                            {% elseif comments|length == 1 %}
+                            {{ comments|length }} Commentaire
                             {% else %}
                             {{ comments|length }} Commentaires
                             {% endif %}
                     </div>
                 </div>
 
+                {% if is_granted('ROLE_USER') %}
                 <div class="row">
                     {{ form(form) }}
                 </div>
+                {% endif %}
 
                 <div class="row mt-5 d-flex justify-content-evenly">
                     {% for comment in comments %}

@@ -25,36 +25,39 @@ class ArticleController extends AbstractController
         $this->repository = $repo; //Initialisation du repository
         $this->em = $em; //Initialisation du manager
     }
-    
+
     #[Route('/article/{id}', name: 'app_article')]
-public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo): Response
-{
-    $article = $repo->find($id);
-    $comment = new Comment();
+    public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo): Response
+    {
 
-    $form = $this->createForm(CommentType::class, $comment);
+            $article = $repo->find($id);
+            $comment = new Comment();
 
-    if (!$article) {
-        throw $this->createNotFoundException('L\'article demandé n\'existe pas');
+            $form = $this->createForm(CommentType::class, $comment);
+
+            if (!$article) {
+                throw $this->createNotFoundException('L\'article demandé n\'existe pas');
+            }
+
+            if ($request->isMethod('POST')) {
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $user = $this->getUser();
+                    $comment->setPosts($article);
+                    $comment->setUsers($user);
+
+                    $em->persist($comment);
+                    $em->flush();
+                    $this->addFlash('success', 'Votre commentaire à bien été pris en compte');
+                }
+            }
+
+
+            return $this->render('Pages/article.html.twig', [
+                'article' => $article,
+                'comments' => $crepo->findBy(['posts' => $article], ['createdAt' => 'DESC']),
+                'form' => $form->createView(),
+            ]);
+       
     }
-
-    if ($request->isMethod('POST')) {
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $comment->setPosts($article);
-            $comment->setUsers($user);
-
-            $em->persist($comment);
-            $em->flush();
-        }
-    }
-
-    return $this->render('Pages/article.html.twig', [
-        'article' => $article,
-        'comments' => $crepo->findBy(['posts' => $article], ['createdAt' => 'DESC']),
-        'form' => $form->createView(),
-    ]);
 }
-}
-

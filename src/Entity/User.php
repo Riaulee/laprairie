@@ -2,17 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+// use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -59,8 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: PostLike::class)]
     private Collection $likes;
 
+    // #[ORM\Embedded(class: 'Vich\UploaderBundle\Entity\File')]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $avatar = null;
+    
+    // #[Vich\UploadableField(mapping: 'avatar', fileNameProperty: 'avatar')]
+    // private ?File $avatarFile = null;
 
     #[ORM\Column(length: 45)]
     private ?string $pseudo = null;
@@ -283,12 +292,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): static
+    // public function getAvatarFile(): ?File
+    // {
+    //     return $this->avatarFile;
+    // }
+
+    public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
-
-        return $this;
     }
+
+    // public function setAvatarFile(?File $avatarFile = null): void
+    // {
+    //     $this->avatarFile = $avatarFile;
+    //     if(null !== $avatarFile){
+    //         $this->updateAt = new \DateTimeImmutable();
+    //     }
+    // }
+
 
     public function getPseudo(): ?string
     {

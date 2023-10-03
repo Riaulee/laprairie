@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
-use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
+use App\Repository\VisualRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{id}', name: 'app_article')]
-    public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo): Response
+    public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo, VisualRepository $vrepo): Response
     {
 
             $article = $repo->find($id);
@@ -52,10 +53,10 @@ class ArticleController extends AbstractController
                 }
             }
 
-
             return $this->render('Pages/article.html.twig', [
                 'article' => $article,
                 'comments' => $crepo->findBy(['posts' => $article], ['createdAt' => 'DESC']),
+                'image' => $vrepo->findBy(['idPost' => $article], ['id' => 'DESC']),
                 'form' => $form->createView(),
             ]);
        

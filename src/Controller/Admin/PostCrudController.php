@@ -20,7 +20,7 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
-    public function configureFields(string $pageName): iterable
+    public function configureFields($pageName): iterable
     {
         return [
             IdField::new('id')->OnlyOnIndex()->setColumns('col-md-4'),
@@ -30,6 +30,7 @@ class PostCrudController extends AbstractCrudController
             TextField::new('content')->setColumns('col-md-4'),
             // CollectionField::new('visuals')->setEntryType(Visual::class)->setColumns('col-md-4'),
             DateField::new('createdAt')->OnlyOnIndex(),
+            $pageName->setUser('idUser'),
         ];
     }
 

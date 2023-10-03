@@ -38,18 +38,19 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->OnlyOnIndex()->setColumns('col-md-4'),
-            TextField::new('firstName')->setColumns('col-md-4'),
-            TextField::new('lastName')->setColumns('col-md-4'),
-            ImageField::new('avatar')->setColumns('col-md-4')
+            IdField::new('id')->OnlyOnIndex()->setColumns('col-md-7'),
+            TextField::new('firstName')->setColumns('col-md-7'),
+            TextField::new('lastName')->setColumns('col-md-7'),
+            TextField::new('pseudo')->setColumns('col-md-7'),
+            ImageField::new('avatar')->setColumns('col-md-7')
             ->setUploadDir('public/img/avatar')
             ->setBasePath('img/avatar')
             ->setSortable(false)
-            ->setFormTypeOption('required',false)->setColumns('col-md-2'),
-            TextField::new('email')->setColumns('col-md-4'),
-            TextField::new('password')->setColumns('col-md-4'),
+            ->setFormTypeOption('required',false)->setColumns('col-md-7'),
+            TextField::new('email')->setColumns('col-md-7'),
+            TextField::new('password')->setColumns('col-md-7'),
             DateField::new('createdAt')->OnlyOnIndex(),
-            ChoiceField::new('roles')->setColumns('col-md-4')->setChoices([
+            ChoiceField::new('roles')->setColumns('col-md-7')->setChoices([
                 'ROLE_USER' => 'ROLE_USER',
                 'ROLE_EDITOR' => 'ROLE_EDITOR',
                 'ROLE_ADMIN' => 'ROLE_ADMIN',

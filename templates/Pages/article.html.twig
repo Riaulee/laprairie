@@ -11,38 +11,31 @@
                         <div id="carouselArticle" class="carousel carousel-dark slide shadow-sm"
                             data-bs-ride="carousel">
 
-                            <!-- Indicators/dots -->
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0"
-                                    class="active"></button>
-                                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="1"></button>
-                                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="2"></button>
-                            </div>
-
                             <!-- The slideshow/carousel -->
                             <div class="carousel-inner">
-                                {% for a in article  %}
+                                {% for i in image  %}
                                 <div class="carousel-item active rounded" style="max-height: 25rem;">
-                                    <img src="img/articles/{{ a.visuals.visualName }}" alt="Los Angeles" class="d-block w-100"
+                                    <img src="/img/articles/{{ i.visualName }}" alt="image " class="d-block w-100"
                                         style="height: 100%; object-fit: cover;">
                                 </div>
-                                {{ a.visuals.visualName }}
                                 {% endfor %}
                             </div>
                             <div>
-                                {{ article.visuals.first('visualName') }}
                             </div>
-
+                            
                             <!-- Left and right controls/icons -->
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </button>
-                        </div>
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+                {# {{ article.visuals.first('visualName') }}
+                <img src="/img/articles/{{ article.visuals.first('visualName') }}" alt="image " class="d-block w-100"
+                    style="height: 100%; object-fit: cover;"> #}
                     </div>
                     <div class="col-md-8">
                         <div class="text-center">

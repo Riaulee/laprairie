@@ -7,7 +7,6 @@ use App\Utils\ImageOptimizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -39,17 +38,18 @@ class UserCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->OnlyOnIndex()->setColumns('col-md-7'),
-            TextField::new('firstName')->setColumns('col-md-7'),
-            TextField::new('lastName')->setColumns('col-md-7'),
-            TextField::new('pseudo')->setColumns('col-md-7'),
-            ImageField::new('avatar')->setColumns('col-md-7')
+            TextField::new('firstName', 'Nom')->setColumns('col-md-7'),
+            TextField::new('lastName', 'Prénom')->setColumns('col-md-7'),
+            TextField::new('pseudo', 'Pseudonyme')->setColumns('col-md-7'),
+            ImageField::new('avatar', 'Avatar')->setColumns('col-md-7')
             ->setUploadDir('public/img/avatar')
             ->setBasePath('img/avatar')
             ->setSortable(false)
             ->setFormTypeOption('required',false)->setColumns('col-md-7'),
-            TextField::new('email')->setColumns('col-md-7'),
-            TextField::new('password')->setColumns('col-md-7'),
-            DateField::new('createdAt')->OnlyOnIndex(),
+            TextField::new('email', 'Adresse mail')->setColumns('col-md-7'),
+            TextField::new('password', 'Mot de passe')->setColumns('col-md-7'),
+            DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
+            DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),
             ChoiceField::new('roles')->setColumns('col-md-7')->setChoices([
                 'ROLE_USER' => 'ROLE_USER',
                 'ROLE_EDITOR' => 'ROLE_EDITOR',
@@ -104,7 +104,7 @@ class UserCrudController extends AbstractCrudController
         $user = $entityManager->getRepository(User::class)->find($id);
 
             if (!$user) {
-                throw $this->createNotFoundException('User not found');
+                throw $this->createNotFoundException('Utilisateur non trouvé');
             }
 
             $form = $this->createForm(User::class, $user);

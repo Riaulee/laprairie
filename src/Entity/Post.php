@@ -176,11 +176,6 @@ class Post
         return $this->visuals;
     }
 
-    public function getFilenames(): Collection
-    {
-        return $this->filenames;
-    }
-
     public function addVisual(Visual $visual): static
     {
         if (!$this->visuals->contains($visual)) {
@@ -188,21 +183,6 @@ class Post
             $visual->setIdPost($this);
         }
 
-        return $this;
-    }
-
-    
-    public function addFilename(?string $filename): static
-    {
-        if (!$this->filenames->contains($filename)) {
-            $this->filenames->add($filename);
-        }
-
-        return $this;
-    }
-    public function removeFilename(?string $filename): static
-    {
-        $this->filenames->removeElement($filename);
         return $this;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Parsedown;
 use App\Entity\Post;
 use App\Entity\Visual;
 use App\Entity\PostLike;
@@ -41,8 +42,13 @@ class ActualiteController extends AbstractController
         );
 
         $actualitesIds = [];
+        $parsedown = new Parsedown();
+        $actualitesIds = [];
+        $htmlContent = [];
+
         foreach ($actualites as $actu) {
             $actualitesIds[] = $actu->getId();
+            $htmlContent[] = $parsedown->text($actu->getContent());
         }
 
         return $this->render(
@@ -50,6 +56,7 @@ class ActualiteController extends AbstractController
             [
                 'actualites' => $actualites,
                 'visual' => $vrepo->findBy(['idPost' => $actualitesIds], ['id' => 'DESC'],1),
+                'content' => $htmlContent,
             ]
         );
     }

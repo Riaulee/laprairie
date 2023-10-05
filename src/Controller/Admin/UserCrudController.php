@@ -37,7 +37,7 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->OnlyOnIndex()->setColumns('col-md-7'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Nom')->setColumns('col-md-7'),
             TextField::new('lastName', 'Prénom')->setColumns('col-md-7'),
             TextField::new('pseudo', 'Pseudonyme')->setColumns('col-md-7'),
@@ -54,7 +54,7 @@ class UserCrudController extends AbstractCrudController
                 'ROLE_USER' => 'ROLE_USER',
                 'ROLE_EDITOR' => 'ROLE_EDITOR',
                 'ROLE_ADMIN' => 'ROLE_ADMIN',
-            ])->allowMultipleChoices(),
+            ])->allowMultipleChoices()->hideOnIndex(),
         ];
     }
 

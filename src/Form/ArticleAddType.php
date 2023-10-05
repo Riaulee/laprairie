@@ -5,18 +5,14 @@ namespace App\Form;
 use App\Entity\Post;
 use App\Entity\Visual;
 use App\Entity\PostType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\DataTransformer\VisualToStringTransformer;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleAddType extends AbstractType
 {
@@ -39,8 +35,13 @@ class ArticleAddType extends AbstractType
                 'label' => "Sous-titre",
                 'required' => false
             ])
-            ->add('content', TextareaType::class, [
-                'label' => "Contenu de l'article",
+            ->add('content', CKEditorType::class, [
+                'config' => [
+                    'toolbar' => 'full',
+                    'required' => true,
+                    'uiColor' => '#ffffff',
+                ],'input_sync' => true,
+                'label' => 'Contenu de l\'article',
             ])
             ->add('visuals', FileType::class, [
                 'label' => "Images/Vidéos",
@@ -60,13 +61,6 @@ class ArticleAddType extends AbstractType
                     ])
                 ], */
             ])
-
-            // ->add('visuals', FileType::class, [
-            //     'label' => "Images/Vidéos",
-            //     'required' => false,
-            //     'multiple' => true,
-            //     'mapped' => false
-            //     ])
 
             ->add('Publier', SubmitType::class);
     }

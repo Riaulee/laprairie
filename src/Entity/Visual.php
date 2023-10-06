@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VisualRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Post;
 
 #[ORM\Entity(repositoryClass: VisualRepository::class)]
 class Visual

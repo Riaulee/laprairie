@@ -15,7 +15,7 @@
                             <div class="carousel-inner">
                                 {% for i in image  %}
                                 <div class="carousel-item active rounded" style="max-height: 25rem;">
-                                    <img src="/img/articles/{{ i.visualName }}" alt="image " class="d-block w-100"
+                                    <img src="/img/articles/{{ i.visualName }}" alt="image {{ i.visualName }}" class="d-block w-100"
                                         style="height: 100%; object-fit: cover;">
                                 </div>
                                 {% endfor %}

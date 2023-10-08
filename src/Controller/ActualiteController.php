@@ -162,7 +162,7 @@ class ActualiteController extends AbstractController
                     $this->addFlash('success', 'L\'article a été ajouté avec succès.');
                     return $this->redirectToRoute('app_actualite');
                 } else {
-                    $this->addFlash('error', "Erreur de validatio");;
+                    $this->addFlash('error', "Erreur de validation");;
                 }
             }
         }

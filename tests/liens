@@ -1,0 +1,395 @@
+https://nouvelle-techno.fr/articles/live-coding-upload-dimages-multiples-avec-symfony-4-et-5
+
+voici post : <?php
+
+namespace App\Entity;
+
+use App\Entity\User;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+class Post
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $subtitle = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $content = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $facebookFlag = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $instagramFlag = null;
+
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updateAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $idUser = null;
+
+    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class, cascade: ["persist"])]
+    private Collection $visuals;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?PostType $fkposttype = null;
+
+    #[ORM\OneToMany(mappedBy: 'posts', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->visuals = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(?string $subtitle): static
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeImmutable $updateAt): static
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?user
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?user $idUser): static
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Visual>
+     */
+    public function getVisuals(): Collection
+    {
+        return $this->visuals;
+    }
+
+    public function addVisual(Visual $visual): static
+    {
+        if (!$this->visuals->contains($visual)) {
+            $this->visuals->add($visual);
+            $visual->setIdPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisual(Visual $visual): static
+    {
+        if ($this->visuals->removeElement($visual)) {
+            // set the owning side to null (unless already changed)
+            if ($visual->getIdPost() === $this) {
+                $visual->setIdPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFkposttype(): ?PostType
+    {
+        return $this->fkposttype;
+    }
+
+    public function setFkposttype(?PostType $fkposttype): static
+    {
+        $this->fkposttype = $fkposttype;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPosts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPosts() === $this) {
+                $comment->setPosts(null);
+            }
+        }
+
+        return $this;
+    }
+
+}
+;voici visual<?php
+
+namespace App\Entity;
+
+use App\Repository\VisualRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: VisualRepository::class)]
+class Visual
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 60, nullable: true)]
+    private ?string $visualName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $url = null;
+
+    #[ORM\ManyToOne(inversedBy: 'visuals', cascade: ["persist"])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?post $idPost = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getVisualName(): ?string
+    {
+        return $this->visualName;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getVisualName();
+    }
+    
+    public function setVisualName(?string $visualName): static
+    {
+        $this->visualName = $visualName;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getIdPost(): ?post
+    {
+        return $this->idPost;
+    }
+
+    public function setIdPost(?post $idPost): static
+    {
+        $this->idPost = $idPost;
+
+        return $this;
+    }
+}; voici postcrud controller de easyadminbundle : <?php
+
+namespace App\Controller\Admin;
+
+use ...
+
+class PostCrudController extends AbstractCrudController
+{
+    
+    private FileUploader $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
+
+    public static function getEntityFqcn(): string
+    {
+        return Post::class;
+    }
+
+    public function createEntity(string $entityFqcn)
+    {
+        $post = new Post();
+        $post->setIdUser($this->getUser());
+
+        return $post;
+    }
+
+    public function configureFields($pageName): iterable
+    {
+        return [
+            AssociationField::new('fkposttype','Type d\'évenement')->setColumns('col-md-7'),
+            IdField::new('id')->HideOnForm(),
+            // TextField::new('type')->setColumns('col-md-7'),
+            TextField::new('title', 'Titre')->setColumns('col-md-7'),
+            TextField::new('subtitle','Sous-titre')->setColumns('col-md-7'),
+            TextareaField::new('content', 'Contenu')
+            ->setFormType(CKEditorType::class)
+            ->setColumns('col-md-7')
+            ->hideOnIndex(),
+            AssociationField::new('idUser')->OnlyOnIndex(),
+            CollectionField::new('visuals')->setColumns('col-md-7')
+            ->setEntryType(VisualType::class),
+            // ->setUploadDir('public/img/articles')
+            // ->setBasePath('img/avatar')
+            // ->setSortable(false)
+            // ->setFormTypeOption('required',false)->setColumns('col-md-7'),
+            DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
+            DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),
+        ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->setPermission(Action::DELETE, 'ROLE_ADMIN');
+    }
+
+
+
+    public function newAction(
+        Request $request,
+        EntityManagerInterface $manager,
+        Security $security,
+        FileUploader $fileUploader,
+    ): Response
+    {
+        $user = $security->getUser();
+        $article = new Post();
+        $form = $this->createForm(ArticleAddType::class, $article);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $article->setIdUser($user);
+
+                $file = $form->get('visuals')->getData();
+
+                foreach ($file as $file) {
+                    $visual = new Visual;
+                    $visual->setIdPost($article);
+                    $fileName = $fileUploader->upload($file);
+                    $visual->setVisualName($fileName);
+                    $article->addVisual($visual);
+                }
+
+                // Persister l'entité Article
+                $manager->persist($article);
+
+                //Tout enregistrer
+                $manager->flush();
+
+                $this->addFlash('success', 'L\'article a été ajouté avec succès.');
+                return $this->redirectToRoute('app_actualite');
+            } else {
+                $this->addFlash('error', "Erreur de validatio");;
+            }}
+
+        return new Response();
+    }
+   
+}
+pourquoi j'ai Can't get a way to read the property "visuals" in class "App\Entity\Visual".

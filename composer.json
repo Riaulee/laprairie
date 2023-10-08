@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.16",
         "easycorp/easyadmin-bundle": "^4.7",
         "erusev/parsedown": "^1.7",
+        "friendsofsymfony/ckeditor-bundle": "^2.4",
         "imagine/imagine": "^1.2",
         "knplabs/knp-paginator-bundle": "^6.2",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -81,7 +82,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "ckeditor:install --tag=4.22.1": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

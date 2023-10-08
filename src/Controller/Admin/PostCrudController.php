@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\Visual;
 use App\Utils\FileUploader;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -45,10 +46,10 @@ class PostCrudController extends AbstractCrudController
             TextField::new('title', 'Titre')->setColumns('col-md-7'),
             TextField::new('subtitle','Sous-titre')->setColumns('col-md-7'),
             CodeEditorField::new('content', 'Contenu')->hideOnIndex()->setColumns('col-md-7')
-            ->setNumOfRows(10)->setLanguage('markdown', 'html')
+            ->setNumOfRows(10)->setLanguage('markdown')
             ->setHelp('Utilisez les laguages Markdown et HTML pour formater le contenu de l\'actualité. '),
             AssociationField::new('idUser')->OnlyOnIndex(),
-            //ImageField::new('visuals')->setColumns('col-md-7'),
+            CollectionField::new('visuals', 'Visuals')->setColumns('col-md-7'),
             DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
             DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),
         ];

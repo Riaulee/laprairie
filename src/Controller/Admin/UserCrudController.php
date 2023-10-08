@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -46,7 +47,7 @@ class UserCrudController extends AbstractCrudController
             ->setBasePath('img/avatar')
             ->setSortable(false)
             ->setFormTypeOption('required',false)->setColumns('col-md-7'),
-            TextField::new('email', 'Adresse mail')->setColumns('col-md-7'),
+            EmailField::new('email', 'Adresse mail')->setColumns('col-md-7'),
             TextField::new('password', 'Mot de passe')->setColumns('col-md-7'),
             DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
             DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),

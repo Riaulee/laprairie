@@ -35,3 +35,7 @@ git clone https://gitlab.com/aurelie-parant/laprairiesymfony.git
 //renseignement du password dans la configuration symfony
 vi /home/ec2-user/laprairiesymfony/.env
 ajouter les password dans l'url DATABASE_URL="mysql://root:password@ etc...
+
+
+pour garder le site ouvert
+nohup symfony server:start

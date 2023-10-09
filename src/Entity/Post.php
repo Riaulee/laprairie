@@ -51,8 +51,6 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
     private Collection $likes;
 
-    private Collection $filenames;
-
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?PostType $fkposttype = null;
@@ -60,10 +58,12 @@ class Post
     #[ORM\OneToMany(mappedBy: 'posts', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    private Collection $file;
+
     public function __construct()
     {
         $this->visuals = new ArrayCollection();
-        $this->filenames = new ArrayCollection();
+        $this->file = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -281,6 +281,39 @@ class Post
                 $comment->setPosts(null);
             }
         }
+
+        return $this;
+    }
+
+    
+	/**
+	 * @return Collection
+	 */
+	public function getFile(): Collection {
+		return $this->file;
+	}
+	
+	/**
+	 * @param Collection $file 
+	 * @return self
+	 */
+	public function setFile(Collection $file): self {
+		$this->file = $file;
+		return $this;
+	}
+
+    public function addFile(string $file): static
+    {
+        if (!$this->file->contains($file)) {
+            $this->file->add($file);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(string $file): static
+    {
+        $this->file->removeElement($file);
 
         return $this;
     }

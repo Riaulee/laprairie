@@ -15,8 +15,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class PostCrudController extends AbstractCrudController
@@ -60,8 +62,8 @@ class PostCrudController extends AbstractCrudController
             ->setColumns('col-md-7')
             ->hideOnIndex(),
             AssociationField::new('idUser')->OnlyOnIndex(),
-            CollectionField::new('visuals')->setColumns('col-md-7')
-            ->setEntryType(VisualType::class)
+            CollectionField::new('file')->setColumns('col-md-7')
+            ->setEntryType(FileType::class)
             // ->setUploadDir('public/img/articles')
             // ->setBasePath('img/avatar')
             // ->setSortable(false)

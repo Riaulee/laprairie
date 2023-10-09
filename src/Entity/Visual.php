@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VisualRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Post;
 
@@ -69,4 +70,5 @@ class Visual
 
         return $this;
     }
+
 }

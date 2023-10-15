@@ -62,12 +62,10 @@ class PostCrudController extends AbstractCrudController
             ->setColumns('col-md-7')
             ->hideOnIndex(),
             AssociationField::new('idUser')->OnlyOnIndex(),
-            CollectionField::new('file')->setColumns('col-md-7')
-            ->setEntryType(FileType::class)
-            // ->setUploadDir('public/img/articles')
-            // ->setBasePath('img/avatar')
-            // ->setSortable(false)
-            ->setFormTypeOption('required',false),
+            CollectionField::new('visuals')->setColumns('col-md-7')
+            ->setEntryType(VisualType::class)
+            ->setFormTypeOption('required',false)
+            ->hideOnIndex(),
             DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
             DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),
         ];

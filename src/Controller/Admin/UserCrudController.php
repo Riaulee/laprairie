@@ -48,7 +48,7 @@ class UserCrudController extends AbstractCrudController
             ->setSortable(false)
             ->setFormTypeOption('required',false)->setColumns('col-md-7'),
             EmailField::new('email', 'Adresse mail')->setColumns('col-md-7'),
-            TextField::new('password', 'Mot de passe')->setColumns('col-md-7'),
+            TextField::new('password', 'Mot de passe')->setColumns('col-md-7')->HideOnIndex(),
             DateField::new('createdAt', 'Date de création')->OnlyOnIndex(),
             DateField::new('updateAt', 'Date de mise à jour')->OnlyOnIndex(),
             ChoiceField::new('roles')->setColumns('col-md-7')->setChoices([

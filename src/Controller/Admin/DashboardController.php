@@ -2,8 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
 use App\Entity\Post;
+use App\Entity\User;
+use App\Entity\Visual;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -57,6 +58,7 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Evénements', 'fa fa-user-circle')->setSubItems([
                 MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Liste des évènements', 'fas fa-eye', Post::class),
+                //MenuItem::linkToCrud('Liste des images', 'fas fa-image', Visual::class),
             ]);
         }
     }

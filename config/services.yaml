@@ -6,6 +6,7 @@
 parameters:
     photo_avatar: '%kernel.project_dir%/public/img/avatar'
     article_directory: '%kernel.project_dir%/public/img/articles'
+    visuals: '%kernel.project_dir%/public/img/articles'
     avatar: /img/avatar
 
 services:

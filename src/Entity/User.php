@@ -74,7 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->posts = new ArrayCollection();
         $this->likes = new ArrayCollection();
-        // $this->createdAt = new DateTimeImmutable();
         $this->comments = new ArrayCollection();
     }
 

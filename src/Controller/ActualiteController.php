@@ -43,7 +43,6 @@ class ActualiteController extends AbstractController
 
         $actualitesIds = [];
         $parsedown = new Parsedown();
-        $actualitesIds = [];
         $htmlContent = [];
 
         foreach ($actualites as $actu) {

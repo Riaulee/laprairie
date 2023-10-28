@@ -53,7 +53,7 @@ class ArticleController extends AbstractController
                 }
             }
 
-            return $this->render('Pages/article.html.twig', [
+            return $this->render('pages/article.html.twig', [
                 'article' => $article,
                 'comments' => $crepo->findBy(['posts' => $article], ['createdAt' => 'DESC']),
                 'image' => $vrepo->findBy(['idPost' => $article], ['id' => 'DESC']),

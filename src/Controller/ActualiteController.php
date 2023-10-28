@@ -168,7 +168,7 @@ class ActualiteController extends AbstractController
             }
         }
 
-        return $this->render('Pages/addArticle.html.twig', [
+        return $this->render('pages/addArticle.html.twig', [
             'form' => $formView,
         ]);
     }

@@ -117,11 +117,8 @@ class ActualiteController extends AbstractController
      */
     #[Route('/addArticle', name: 'app_addarticle')]
     public function addArticle(
-        Request $request,
-        EntityManagerInterface $manager,
-        Security $security,
-        AuthorizationCheckerInterface $authChecker,
-        FileUploader $fileUploader,
+        Request $request,EntityManagerInterface $manager,Security $security,
+        AuthorizationCheckerInterface $authChecker,FileUploader $fileUploader,
     ): Response {
         $user = $security->getUser();
 

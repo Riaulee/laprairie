@@ -28,7 +28,8 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{id}', name: 'app_article')]
-    public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo, VisualRepository $vrepo): Response
+    public function index($id, PostRepository $repo, EntityManagerInterface $em, 
+    Request $request, CommentRepository $crepo, VisualRepository $vrepo): Response
     {
 
             $article = $repo->find($id);

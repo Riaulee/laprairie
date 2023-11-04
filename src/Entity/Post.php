@@ -209,6 +209,7 @@ class Post
         return $this->likes;
     }
 
+    //Méthode addLike avec une varialbe $like en entrée
     public function addLike(PostLike $like): static
     {
         if (!$this->likes->contains($like)) {

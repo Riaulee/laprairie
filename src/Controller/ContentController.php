@@ -20,6 +20,14 @@ class ContentController extends AbstractController
         $content6 = $repo->findOneBy(['ponderation' => 6]);
         $content7 = $repo->findOneBy(['ponderation' => 7]);
 
-        return var_dump($content1);
+        return $this->render('pages/quisommesnous.html.twig', [
+            'content1' => $content1,
+            'content2' => $content2,
+            'content3' => $content3,
+            'content4' => $content4,
+            'content5' => $content5,
+            'content6' => $content6,
+            'content7' => $content7,
+        ]);
     }
 }

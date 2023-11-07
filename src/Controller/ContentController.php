@@ -21,7 +21,7 @@ class ContentController extends AbstractController
         $content7 = $repo->findOneBy(['ponderation' => 7]);
 
         return $this->render('Pages/quisommesnous.html.twig', [
-            'content1' => $content1,
+            'content1' => $cgit pullgitontent1,
             'content2' => $content2,
             'content3' => $content3,
             'content4' => $content4,

@@ -39,12 +39,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/quisommesnous', name: 'app_quisommesnous')]
-    public function quisommesnous(): Response
-    {
-        return $this->render('pages/quisommesnous.html.twig');
-    }
-
     #[Route('/passezalaction', name: 'app_passezalaction')]
     public function passezalaction(): Response
     {

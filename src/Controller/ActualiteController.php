@@ -51,7 +51,7 @@ class ActualiteController extends AbstractController
         }
 
         return $this->render(
-            'Pages/actualites.html.twig',
+            'pages/actualites.html.twig',
             [
                 'actualites' => $actualites,
                 'visual' => $vrepo->findBy(['idPost' => $actualitesIds], ['id' => 'DESC'],1),

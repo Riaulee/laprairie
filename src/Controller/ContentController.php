@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContentController extends AbstractController
 {
     #[Route('/quisommesnous', name: 'app_quisommesnous')]
-    public function index(ContenuRepository $repo,): Response
+    public function index(ContenuRepository $repo): Response
     {
         $content1 = $repo->findOneBy(['ponderation' => 1]);
         $content2 = $repo->findOneBy(['ponderation' => 2]);
@@ -20,14 +20,6 @@ class ContentController extends AbstractController
         $content6 = $repo->findOneBy(['ponderation' => 6]);
         $content7 = $repo->findOneBy(['ponderation' => 7]);
 
-        return $this->render('Pages/quisommesnous.html.twig', [
-            'content1' => $cgit pullgitontent1,
-            'content2' => $content2,
-            'content3' => $content3,
-            'content4' => $content4,
-            'content5' => $content5,
-            'content6' => $content6,
-            'content7' => $content7,
-        ]);
+        return var_dump($content1);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\PostRepository;
@@ -28,7 +27,8 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{id}', name: 'app_article')]
-    public function index($id, PostRepository $repo, EntityManagerInterface $em, Request $request, CommentRepository $crepo, VisualRepository $vrepo): Response
+    public function index($id, PostRepository $repo, EntityManagerInterface $em, 
+    Request $request, CommentRepository $crepo, VisualRepository $vrepo): Response
     {
 
             $article = $repo->find($id);
@@ -53,7 +53,7 @@ class ArticleController extends AbstractController
                 }
             }
 
-            return $this->render('Pages/article.html.twig', [
+            return $this->render('pages/article.html.twig', [
                 'article' => $article,
                 'comments' => $crepo->findBy(['posts' => $article], ['createdAt' => 'DESC']),
                 'image' => $vrepo->findBy(['idPost' => $article], ['id' => 'DESC']),

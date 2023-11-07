@@ -48,18 +48,6 @@ class ArticleAddType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'mapped' => false,
-                /* 'constraints' => [
-                    'Assert\File'([
-                            'extensions' => [
-                                'application/pdf',
-                                'image/png',
-                                'image/jpeg',
-                                'video/x-msvideo',
-                            ],
-                        'extensionsMessage' => 'Merci de choisir des documents avec les extensions : pdf, png, jpg ou avi',
-                        'uploadErrorMessage' => 'Une erreur s\'est produite lors du téléchargement du fichier.',
-                    ])
-                ], */
             ])
 
             ->add('Publier', SubmitType::class);

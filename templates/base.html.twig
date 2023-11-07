@@ -33,10 +33,9 @@
     {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-{# style="background-image: url(img/site/coquelicot_transparent_vert.png); background-repeat: no-repeat; background-size:
-cover; background-attachment: fixed;" #}
-<body style="background-color: rgba(220, 220, 220, 0.308);" >
-    {{ include('Messages/flash_messages.html.twig') }}
+
+<body>
+    {{ include('messages/flash_messages.html.twig') }}
     {% block nav %}
     {% include "elements/_nav.html.twig" %}
     {% endblock nav %}

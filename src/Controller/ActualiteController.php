@@ -116,11 +116,8 @@ class ActualiteController extends AbstractController
      */
     #[Route('/addArticle', name: 'app_addarticle')]
     public function addArticle(
-        Request $request,
-        EntityManagerInterface $manager,
-        Security $security,
-        AuthorizationCheckerInterface $authChecker,
-        FileUploader $fileUploader,
+        Request $request,EntityManagerInterface $manager,Security $security,
+        AuthorizationCheckerInterface $authChecker,FileUploader $fileUploader,
     ): Response {
         $user = $security->getUser();
 
@@ -167,7 +164,7 @@ class ActualiteController extends AbstractController
             }
         }
 
-        return $this->render('Pages/addArticle.html.twig', [
+        return $this->render('pages/addArticle.html.twig', [
             'form' => $formView,
         ]);
     }

@@ -156,7 +156,7 @@ class ActualiteController extends AbstractController
                     $manager->flush();
 
                     $this->addFlash('success', 'L\'article a été ajouté avec succès.');
-                    //return $this->redirectToRoute('app_actualite');
+                    return $this->redirectToRoute('app_actualite');
                     dd($files);
                 } else {
                     $this->addFlash('error', "Erreur de validation");;

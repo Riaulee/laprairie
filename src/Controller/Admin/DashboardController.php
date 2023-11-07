@@ -33,20 +33,20 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl('Retour au site', 'fa fa-home', '/')->setPermission('ROLE_USER');
         yield MenuItem::section('');
 
-        if ($this->isGranted('ROLE_USER')) {
-            yield MenuItem::section('Gestion de mon compte');
-            yield MenuItem::subMenu('Mon compte', 'fa fa-user-circle')->setSubItems([
-                MenuItem::linkToCrud('Modifier mon compte', 'fas fa-eye', User::class),
-            ]);
-        }
+        // if ($this->isGranted('ROLE_USER')) {
+        //     yield MenuItem::section('Gestion de mon compte');
+        //     yield MenuItem::subMenu('Mon compte', 'fa fa-user-circle')->setSubItems([
+        //         MenuItem::linkToCrud('Modifier mon compte', 'fas fa-eye', User::class),
+        //     ]);
+        // }
 
-        if ($this->isGranted('ROLE_EDITOR')) {
-            yield MenuItem::section('Gestion de mes articles');
-            yield MenuItem::subMenu('Mes événements', 'fa fa-user-circle')->setSubItems([
-                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
-                MenuItem::linkToCrud('Liste de mes évènements', 'fas fa-eye', Post::class),
-            ]);
-        }
+        // if ($this->isGranted('ROLE_EDITOR')) {
+        //     yield MenuItem::section('Gestion de mes articles');
+        //     yield MenuItem::subMenu('Mes événements', 'fa fa-user-circle')->setSubItems([
+        //         MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
+        //         MenuItem::linkToCrud('Liste de mes évènements', 'fas fa-eye', Post::class),
+        //     ]);
+        // }
 
         if ($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::section('Gestion des inscrits');

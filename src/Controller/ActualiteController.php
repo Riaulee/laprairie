@@ -159,7 +159,7 @@ class ActualiteController extends AbstractController
                     return $this->redirectToRoute('app_actualite');
                     dd($files);
                 } else {
-                    $this->addFlash('error', "Erreur de validation");;
+                    $this->addFlash('error', "Erreur de validation");
                 }
             }
         }

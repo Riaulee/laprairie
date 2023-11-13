@@ -33,17 +33,12 @@
                 Ajouter un article
             </div>
             <a href="{{ path('app_addarticle') }}">
-                {# <div type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#articleModal"
-                    href="{{ path('app_addarticle') }}"> #}
                     <i class="fa-solid fa-circle-plus"></i>
-                    {#
-                </div> #}
             </a>
         </div>
         {% endif %}
         <div class="col-md-2"></div>
     </div>
-    {# {% include "Modal/articlemodal.html.twig" %} #}
 
     <div class="row">
         <div class="col-md-2"></div>
@@ -62,7 +57,6 @@
                                     <div class="row h-100">
                                         <h5 class="card-title text-center">{{ a.title }}</h5>
                                         <p class="card-text">{{ a.content| raw }}</p>
-                                        {# <p class="card-text">Auteur : {{ a.id_user_id }}</p> #}
                                         <p class="card-text d-flex align-items-end justify-content-end"><small
                                                 class="text-muted">
                                                 Dernière mise à jour le

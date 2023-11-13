@@ -8,7 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
@@ -16,11 +18,21 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('pseudo')
-            ->add('email')
-            ->add('phone')
+            ->add('firstName', TextType::class, [
+                'label' => "Prénom",
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => "Nom",
+            ])
+            ->add('pseudo', TextType::class, [
+                'label' => "Pseudo",
+            ])
+            ->add('email', TextType::class, [
+                'label' => "Adresse mail",
+            ])
+            ->add('phone', TelType::class, [
+                'label' => "Numéro de téléphone",
+            ])
             ->add('avatar', FileType::class, [
                 'label' => 'Image de l\'Avatar',
                 'required' => false,

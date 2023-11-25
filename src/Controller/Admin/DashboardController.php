@@ -55,9 +55,9 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Liste des utilisateurs', 'fas fa-eye', User::class),
             ]);
             yield MenuItem::section('Gestion des articles');
-            yield MenuItem::subMenu('Evénements', 'fa fa-user-circle')->setSubItems([
-                MenuItem::linkToCrud('Créer un évenement', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
-                MenuItem::linkToCrud('Liste des évènements', 'fas fa-eye', Post::class),
+            yield MenuItem::subMenu('Articles', 'fa fa-user-circle')->setSubItems([
+                MenuItem::linkToCrud('Créer un article', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Liste des articles', 'fas fa-eye', Post::class),
                 //MenuItem::linkToCrud('Liste des images', 'fas fa-image', Visual::class),
             ]);
         }

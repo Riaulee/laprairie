@@ -31,7 +31,7 @@ class Visual
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'visuals', cascade: ["persist"])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?post $idPost = null;
 
     #[Gedmo\Timestampable(on: 'create')]

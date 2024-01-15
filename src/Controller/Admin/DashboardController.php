@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Contenu;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Visual;
@@ -58,8 +59,15 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Articles', 'fa fa-user-circle')->setSubItems([
                 MenuItem::linkToCrud('Créer un article', 'fas fa-plus-circle', Post::class)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Liste des articles', 'fas fa-eye', Post::class),
-                //MenuItem::linkToCrud('Liste des images', 'fas fa-image', Visual::class),
+                MenuItem::linkToCrud('Liste des images', 'fas fa-image', Visual::class),
             ]);
+            yield MenuItem::section('Gestion de la page Qui sommes-nous?');
+            yield MenuItem::subMenu('Présentation', 'fa fa-user-circle')->setSubItems([
+                MenuItem::linkToCrud('Créer une section', 'fas fa-plus-circle', Contenu::class)->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Liste des sections', 'fas fa-eye', Contenu::class),
+
+            ]);
+
         }
     }
 }

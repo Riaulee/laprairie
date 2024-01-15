@@ -80,6 +80,11 @@ class Post
         return $this->title;
     }
 
+    public function __toString(): string
+    {
+        return $this->getTitle();
+    }
+
     public function setTitle(string $title): static
     {
         $this->title = $title;

@@ -35,6 +35,9 @@ class Contenu
     #[ORM\Column(nullable: true)]
     private ?int $ponderation = null;
 
+    #[ORM\Column(length: 6)]
+    private ?string $positionImage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -117,9 +120,26 @@ class Contenu
         return $this->ponderation;
     }
 
+    public function __toString(): string
+    {
+        return $this->getPonderation();
+    }
+
     public function setPonderation(?int $ponderation): static
     {
         $this->ponderation = $ponderation;
+
+        return $this;
+    }
+
+    public function getPositionImage(): ?string
+    {
+        return $this->positionImage;
+    }
+
+    public function setPositionImage(string $positionImage): static
+    {
+        $this->positionImage = $positionImage;
 
         return $this;
     }

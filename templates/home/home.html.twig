@@ -1,111 +1,142 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Site du collectif la prairie Le Mans - Home{% endblock %}
+{% block title %}Site du collectif la prairie Le Mans - Home
+{% endblock %}
 
 {% block body %}
 
-<div class="container-fluid">
-    <div class="row my-5">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 rounded bg-white">
-            <div class="row">
-                <div id="carouselArticle" class="carousel carousel-dark slide shadow" data-bs-ride="carousel">
-
-                    <!-- Indicators/dots -->
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0"
-                            class="active" value="btnCaroussel1"></button>
-                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="1" value="btnCaroussel1"></button>
-                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="2" value="btnCaroussel1"></button>
-                    </div>
-
-                    <!-- The slideshow/carousel -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active rounded" style="max-height: 25rem;">
-                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100"
-                                style="height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="carousel-item rounded" style="max-height: 25rem;">
-                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item rounded" style="max-height: 25rem;">
-                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100">
-                        </div>
-                    </div>
-
-                    <!-- Left and right controls/icons -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
-                        data-bs-slide="prev" value="btnCarousselGauche">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
-                        data-bs-slide="next" value="btnCarousseldroite">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-                </div>
-            </div>
+	<div class="container-fluid">
+		<div class="row my-5">
+			<div class="col-md-2"></div>
+			<div
+				class="col-md-8 rounded bg-white">
+				{# <div class="row">
+				                <div id="carouselArticle" class="carousel carousel-dark slide shadow" data-bs-ride="carousel">
+				
+				                    <!-- Indicators/dots -->
+				                    <div class="carousel-indicators">
+				                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="0"
+				                            class="active" value="btnCaroussel1"></button>
+				                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="1" value="btnCaroussel1"></button>
+				                        <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="2" value="btnCaroussel1"></button>
+				                    </div>
+				
+				                    <!-- The slideshow/carousel -->
+				                    <div class="carousel-inner">
+				                        <div class="carousel-item active rounded" style="max-height: 25rem;">
+				                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100"
+				                                style="height: 100%; object-fit: cover;">
+				                        </div>
+				                        <div class="carousel-item rounded" style="max-height: 25rem;">
+				                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100">
+				                        </div>
+				                        <div class="carousel-item rounded" style="max-height: 25rem;">
+				                            <img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" class="d-block w-100">
+				                        </div>
+				                    </div>
+				
+				                    <!-- Left and right controls/icons -->
+				                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
+				                        data-bs-slide="prev" value="btnCarousselGauche">
+				                        <span class="carousel-control-prev-icon"></span>
+				                    </button>
+				                    <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
+				                        data-bs-slide="next" value="btnCarousseldroite">
+				                        <span class="carousel-control-next-icon"></span>
+				                    </button>
+				                </div>
+				            </div> #}
+				<div class="row">
+    <div id="carouselArticle" class="carousel carousel-dark slide shadow" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            {% for key, post in posts %}
+                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="{{ key }}"
+                    {% if key == 0 %}class="active"{% endif %}></button>
+            {% endfor %}
         </div>
-        <div class="col-md-2"></div>
-    </div>
 
-    {# Encart passez à l'action #}
-    <div class="row my-5">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row rounded shadow d-flex justify-content-evenly bg-white">
-                <h1 class="text-center pt-4 fw-bolder"> 
-                    <img src="../img/site/consoude.jpg" alt="Image Consoude" style="max-width: 5rem;">
-                    Passez à l'action ! 
-                    <img src="../img/site/consoude.jpg" alt="Image Consoude" style="max-width: 5rem;">
-                </h1>
-
-                <div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/vert.jpg');background-repeat: no-repeat; background-size:
-cover;">
-                    <img src="\img\site\donmonetaire.PNG" class="card-img-top mt-2" alt="Image don monetaire"
-                        style="max-height: 15rem; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title text-white fw-bold">Dons direct</h5>
-                        <p class="card-text text-white fw-bold">Vous souhaitez aider financièrement notre projet ? Faites un don sur Hello Asso!</p>
-                        <a href="https://www.helloasso.com/associations/la-passerelle-jardin-communautaire" target="_blank" class="btn btn-light fw-bold text-success">C'est parti !</a>
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            {% for key, post in posts %}
+                <div class="carousel-item {% if key == 0 %}active{% endif %} rounded" style="max-height: 25rem;">
+                    {% if post.visuals|length > 0 %}
+                        {% set firstImage = post.visuals[0] %}
+                        <img src="img/articles/{{ post.visuals.first('visualName') }}" alt="{{ post.title }}" class="d-block w-100"
+                            style="height: 100%; object-fit: cover;">
+                    {% endif %}
+                    <div class="carousel-caption">
+                        <h3>{{ post.title }}</h3>
                     </div>
                 </div>
-
-                <div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/bleu.jpg'); background-repeat: no-repeat; background-size:
-cover;">
-                    <img src="\img\site\materiels.PNG" class="card-img-top mt-2" alt="Image don matériel" style="max-height: 15rem; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title text-white fw-bold">Dons matériels</h5>
-                        <p class="card-text text-white fw-bold">Vous voulez faire don de matériel, avec plaisir! Ils nous aident à avancer dans nos projets!</p>
-                        <a href="#" class="btn btn-light fw-bold text-primary">C'est parti !</a>
-                    </div>
-                </div>
-
-                <div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/orange.jpg'); background-repeat: no-repeat; background-size:
-cover;">
-                    <img src="\img\site\jardiner.PNG" class="card-img-top mt-2" alt="Image don de temps"
-                        style="max-height: 15rem; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title text-white fw-bold">Dons de temps</h5>
-                        <p class="card-text text-white fw-bold">Que ce soit du jardinage ou de la communication, il y a toujours à faire à la prairie !</p>
-                        <a href="#" class="btn btn-light fw-bold text-warning">C'est parti !</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        <div class="col-md-2"></div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle"
+            data-bs-slide="prev" value="btnCarousselGauche">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle"
+            data-bs-slide="next" value="btnCarousseldroite">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
-
 </div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+		{# Encart passez à l'action #}
+		<div class="row my-5">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="row rounded shadow d-flex justify-content-evenly bg-white">
+					<h1 class="text-center pt-4 fw-bolder">
+						<img src="../img/site/consoude.jpg" alt="Image Consoude" style="max-width: 5rem;">
+						Passez à l'action !
+						<img src="../img/site/consoude.jpg" alt="Image Consoude" style="max-width: 5rem;">
+					</h1>
+
+					<div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/vert.jpg');background-repeat: no-repeat; background-size:
+							cover;">
+						<img src="\img\site\donmonetaire.PNG" class="card-img-top mt-2" alt="Image don monetaire" style="max-height: 15rem; object-fit: cover;">
+						<div class="card-body">
+							<h5 class="card-title text-white fw-bold">Dons direct</h5>
+							<p class="card-text text-white fw-bold">Vous souhaitez aider financièrement notre projet ? Faites un don sur Hello Asso!</p>
+							<a href="https://www.helloasso.com/associations/la-passerelle-jardin-communautaire" target="_blank" class="btn btn-light fw-bold text-success">C'est parti !</a>
+						</div>
+					</div>
+
+					<div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/bleu.jpg'); background-repeat: no-repeat; background-size:
+							cover;">
+						<img src="\img\site\materiels.PNG" class="card-img-top mt-2" alt="Image don matériel" style="max-height: 15rem; object-fit: cover;">
+						<div class="card-body">
+							<h5 class="card-title text-white fw-bold">Dons matériels</h5>
+							<p class="card-text text-white fw-bold">Vous voulez faire don de matériel, avec plaisir! Ils nous aident à avancer dans nos projets!</p>
+							<a href="#" class="btn btn-light fw-bold text-primary">C'est parti !</a>
+						</div>
+					</div>
+
+					<div class="card my-4 shadow" style="width: 30%; background-image: url('../img/site/orange.jpg'); background-repeat: no-repeat; background-size:
+							cover;">
+						<img src="\img\site\jardiner.PNG" class="card-img-top mt-2" alt="Image don de temps" style="max-height: 15rem; object-fit: cover;">
+						<div class="card-body">
+							<h5 class="card-title text-white fw-bold">Dons de temps</h5>
+							<p class="card-text text-white fw-bold">Que ce soit du jardinage ou de la communication, il y a toujours à faire à la prairie !</p>
+							<a href="#" class="btn btn-light fw-bold text-warning">C'est parti !</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+	</div>
 
 
-
-</div>
-
-
-{% endblock %}
-
-{# {% block javascripts %}
-<script>
-
-</script>
-{% endblock %} #}
+</div>{% endblock %}{# {% block javascripts %}
+	<script>
+	
+	</script>
+	{% endblock %} #}

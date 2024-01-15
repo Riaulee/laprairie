@@ -10,7 +10,7 @@
 						<div class="text-center">
 							<h2 class="display-3 fw-bolder">
 								<img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" style="max-width: 5rem;">
-								Qui sommes nous ?xxxx
+								Qui sommes nous ?
 								<img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" style="max-width: 5rem;">
 							</h2>
 							{% if is_granted('ROLE_EDITOR') %}
@@ -37,6 +37,7 @@
 					<div class="row">
 						<div class="card mb-3 shadow border-success border-5">
 							<div class="row g-0">
+							{% if c.positionImage == 'gauche' %}
 								<div class="col-md-4">
 									<img src="{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
 								</div>
@@ -56,6 +57,27 @@
 										</p>
 									</div>
 								</div>
+							{% else %}
+								<div class="col-md-8">
+									<div class="card-body">
+										<h5 class="card-title" id="tvaleur">{{ c.title }}</h5>
+										<p class="card-text" id="cvaleur">{{ c.content }}
+										</p>
+										<p class="card-text">
+											<small class="text-muted" id="avaleur">Dernière mise à jour en
+												{% if c.updateAt != null and c.updateAt != '' %}
+													{{ c.updateAt|date("m/Y") }}
+												{% else %}
+													{{ c.createdAt|date("m/Y") }}
+												{% endif %}
+											</small>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<img src="{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
+								</div>
+							{% endif %}
 							</div>
 						</div>
 					</div>
@@ -93,164 +115,13 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> 
 				
 				
-								<div class="row">
-									<div class="card mb-3 shadow border-info border-5">
-										<div class="row g-0">
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title">{{ content2.title }}</h5>
-													<p class="card-text">{{ content2.content }}</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content2.updateAt != null and content2.updateAt != '' %}
-																{{ content2.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content2.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<img src="{{ content2.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos engagements">
-											</div>
-										</div>
-									</div>
-								</div>
-				
-								<div class="row">
-									<div class="card mb-3 shadow border-warning border-5">
-										<div class="row g-0">
-											<div class="col-md-4">
-												<img src="{{ content3.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
-											</div>
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title" id="tvaleur">{{ content3.title }}</h5>
-													<p class="card-text" id="cvaleur">{{ content3.content }}
-													</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content3.updateAt != null and content3.updateAt != '' %}
-																{{ content3.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content3.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-				
-								<div class="row">
-									<div class="card mb-3 shadow border-success border-5">
-										<div class=" row g-0">
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title">{{ content4.title }}</h5>
-													<p class="card-text">{{ content4.content }}</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content4.updateAt != null and content4.updateAt != '' %}
-																{{ content4.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content4.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<img src="{{ content4.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos engagements">
-											</div>
-										</div>
-									</div>
-								</div>
-				
-								<div class="row">
-									<div class="card mb-3 shadow  border-info border-5">
-										<div class="row g-0">
-											<div class="col-md-4">
-												<img src="{{ content5.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
-											</div>
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title" id="tvaleur">{{ content5.title }}</h5>
-													<p class="card-text" id="cvaleur">{{ content5.content }}
-													</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content5.updateAt != null and content5.updateAt != '' %}
-																{{ content5.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content5.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-				
-								<div class="row">
-									<div class="card mb-3 shadow border-warning border-5">
-										<div class="row g-0">
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title">{{ content6.title }}</h5>
-													<p class="card-text">{{ content6.content }}</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content6.updateAt != null and content6.updateAt != '' %}
-																{{ content6.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content6.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<img src="{{ content6.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos engagements">
-											</div>
-										</div>
-									</div>
-								</div>
-				
-								<div class="row">
-									<div class="card mb-3 shadow border-success border-5">
-										<div class="row g-0">
-											<div class="col-md-4">
-												<img src="{{ content7.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
-											</div>
-											<div class="col-md-8">
-												<div class="card-body">
-													<h5 class="card-title" id="tvaleur">{{ content7.title }}</h5>
-													<p class="card-text" id="cvaleur">{{ content7.content }}
-													</p>
-													<p class="card-text">
-														<small class="text-muted" id="avaleur">Dernière mise à jour :
-															{% if content7.updateAt != null and content7.updateAt != '' %}
-																{{ content7.updateAt|date("m/Y") }}
-															{% else %}
-																{{ content7.createdAt|date("m/Y") }}
-															{% endif %}
-														</small>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> #}
 
 
-			</div>
+
+			</div>#}
 			<div class="col-md-2"></div>
 		</div>
 	</div>

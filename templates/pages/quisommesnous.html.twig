@@ -13,11 +13,6 @@
 								Qui sommes nous ?
 								<img src="../img/site/eupatoire.jpg" alt="Image Eupatoire" style="max-width: 5rem;">
 							</h2>
-							{% if is_granted('ROLE_EDITOR') %}
-								<div class="btn d-flex justify-content-end" onclick="penModifyContent()">
-									<i class="fa-solid fa-pen"></i>
-								</div>
-							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -29,6 +24,22 @@
 
 {% block body %}
 	<div class="container-fluid mb-5">
+
+		<div class="row mb-5">
+        <div class="col-md-2"></div>
+        {% if is_granted('ROLE_EDITOR') %}
+        <div class="col-md-8 bg-white shadow p-3 d-flex flex-row justify-content-between rounded">
+            <div class="ms-5">
+                Ajouter ou modifier du contenu via la console d'administration
+            </div>
+            <a href="/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CContenuCrudController">
+                    <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </div>
+        {% endif %}
+        <div class="col-md-2"></div>
+    </div>
+
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -39,43 +50,47 @@
 							<div class="row g-0">
 							{% if c.positionImage == 'gauche' %}
 								<div class="col-md-4">
-									<img src="{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
+									<img src="\img\contenu\{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
 								</div>
 								<div class="col-md-8">
-									<div class="card-body">
-										<h5 class="card-title" id="tvaleur">{{ c.title }}</h5>
-										<p class="card-text" id="cvaleur">{{ c.content }}
-										</p>
-										<p class="card-text">
-											<small class="text-muted" id="avaleur">Dernière mise à jour en
-												{% if c.updateAt != null and c.updateAt != '' %}
-													{{ c.updateAt|date("m/Y") }}
-												{% else %}
-													{{ c.createdAt|date("m/Y") }}
-												{% endif %}
-											</small>
-										</p>
+									<div class="card-body p-5 h-100">
+										<div class="row h-100">
+											<h5 class="card-title text-center p-3" id="tvaleur">{{ c.title }}</h5>
+											<p class="card-text p-3" id="cvaleur">{{ c.content| raw  }}
+											</p>
+											<p class="card-text d-flex align-items-end justify-content-end">
+												<small class="text-muted" id="avaleur">Dernière mise à jour en
+													{% if c.updateAt != null and c.updateAt != '' %}
+														{{ c.updateAt|date("m/Y") }}
+													{% else %}
+														{{ c.createdAt|date("m/Y") }}
+													{% endif %}
+												</small>
+											</p>
+										</div>
 									</div>
 								</div>
 							{% else %}
 								<div class="col-md-8">
-									<div class="card-body">
-										<h5 class="card-title" id="tvaleur">{{ c.title }}</h5>
-										<p class="card-text" id="cvaleur">{{ c.content }}
-										</p>
-										<p class="card-text">
-											<small class="text-muted" id="avaleur">Dernière mise à jour en
-												{% if c.updateAt != null and c.updateAt != '' %}
-													{{ c.updateAt|date("m/Y") }}
-												{% else %}
-													{{ c.createdAt|date("m/Y") }}
-												{% endif %}
-											</small>
-										</p>
+									<div class="card-body p-5 h-100">
+										<div class="row h-100">
+											<h5 class="card-title text-center p-3" id="tvaleur">{{ c.title }}</h5>
+											<p class="card-text p-3" id="cvaleur">{{ c.content| raw  }}
+											</p>
+											<p class="card-text d-flex align-items-end justify-content-end">
+												<small class="text-muted" id="avaleur">Dernière mise à jour en
+													{% if c.updateAt != null and c.updateAt != '' %}
+														{{ c.updateAt|date("m/Y") }}
+													{% else %}
+														{{ c.createdAt|date("m/Y") }}
+													{% endif %}
+												</small>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-4">
-									<img src="{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image nos valeurs" id="ivaleur">
+									<img src="\img\contenu\{{ c.image }}" class="img-fluid rounded py-4 px-2" alt="Image présentation" id="idPresentation">
 								</div>
 							{% endif %}
 							</div>

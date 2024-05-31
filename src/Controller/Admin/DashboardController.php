@@ -31,7 +31,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl('Retour au site', 'fa fa-home', '/')->setPermission('ROLE_USER');
+        yield MenuItem::linkToUrl('Retour au site', 'fa fa-home', '/accueil')->setPermission('ROLE_USER');
         yield MenuItem::section('');
 
         // if ($this->isGranted('ROLE_USER')) {

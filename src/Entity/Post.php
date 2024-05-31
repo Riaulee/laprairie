@@ -47,17 +47,17 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?user $idUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'idPost', targetEntity: Visual::class, cascade: ["persist","remove"])]
     private Collection $visuals;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class, cascade: ["persist","remove"])]
     private Collection $likes;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?PostType $fkposttype = null;
 
-    #[ORM\OneToMany(mappedBy: 'posts', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'posts', targetEntity: Comment::class, cascade: ["persist","remove"])]
     private Collection $comments;
 
     private Collection $file;
@@ -65,7 +65,6 @@ class Post
     public function __construct()
     {
         $this->visuals = new ArrayCollection();
-        //$this->file = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }

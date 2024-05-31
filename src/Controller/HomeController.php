@@ -30,7 +30,7 @@ class HomeController extends AbstractController
         $this->em = $em; //Initialisation du manager
     }
 
-    #[Route('/', name: 'app_home')]
+    #[Route('/accueil', name: 'app_home')]
     public function index(PostRepository $repo,): Response
     {
         $posts = $repo->findBy([], ['title' => 'asc']);

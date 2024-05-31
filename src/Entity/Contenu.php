@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContenuRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ContenuRepository::class)]
 class Contenu
@@ -23,10 +24,12 @@ class Contenu
     #[ORM\ManyToOne]
     private ?User $users = null;
 
-    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -143,4 +146,5 @@ class Contenu
 
         return $this;
     }
+
 }

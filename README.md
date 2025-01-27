@@ -1,6 +1,9 @@
 # laprairiesymfony
 
-
+Bonjour, 
+Bienvenus sur le projet de site internet de la Prairie, association alliant permaculture, social et arts.
+Vous y trouverez ce que j'ai codé en PHP Symphony (connexion, ajout d'article, utilisation de bootstrap, ajout de commentaire et de likes...)
+Bonne journée!
 
 ## Getting started
 
